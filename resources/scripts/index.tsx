@@ -14,5 +14,5 @@ import './bootstrap';
 createRoot(document.getElementById('app')!).render(
     <StrictMode>
         <App />
-    </StrictMode>
+    </StrictMode>,
 );

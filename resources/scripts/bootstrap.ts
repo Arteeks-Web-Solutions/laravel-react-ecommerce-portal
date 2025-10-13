@@ -10,9 +10,9 @@ import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 
 declare global {
-  interface Window {
-    axios: AxiosInstance;
-  }
+    interface Window {
+        axios: AxiosInstance;
+    }
 }
 
 window.axios = axios;
