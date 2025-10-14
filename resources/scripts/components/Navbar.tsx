@@ -12,7 +12,11 @@ interface NavbarProps {
 export default function Navbar({ cartItemCount }: NavbarProps) {
     const navigate = useNavigate();
 
-    const isAuthenticated = useStoreState((state) => !!state.user.data?.name);
+    const user = useStoreState((state) => state.user.data);
+
+    const isAuthenticated = !!user;
+    const isAdmin = !!user?.isAdmin;
+
     const setUserData = useStoreActions((actions) => actions.user.setUserData);
 
     const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
@@ -76,19 +80,21 @@ export default function Navbar({ cartItemCount }: NavbarProps) {
                                     <span className='hidden sm:inline'>My Account</span>
                                 </NavLink>
 
-                                <NavLink
-                                    to='/admin'
-                                    className={({ isActive }) =>
-                                        `flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
-                                            isActive
-                                                ? 'bg-gray-900 text-white'
-                                                : 'text-gray-700 hover:bg-gray-100'
-                                        }`
-                                    }
-                                >
-                                    <LayoutDashboard className='w-5 h-5' />
-                                    <span className='hidden sm:inline'>Admin</span>
-                                </NavLink>
+                                {isAdmin && (
+                                    <NavLink
+                                        to='/admin'
+                                        className={({ isActive }) =>
+                                            `flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+                                                isActive
+                                                    ? 'bg-gray-900 text-white'
+                                                    : 'text-gray-700 hover:bg-gray-100'
+                                            }`
+                                        }
+                                    >
+                                        <LayoutDashboard className='w-5 h-5' />
+                                        <span className='hidden sm:inline'>Admin</span>
+                                    </NavLink>
+                                )}
 
                                 <button
                                     onClick={onTriggerLogout}
