@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 // exists to apply auth middleware or other route-specific protections.
 
 // Login Routes
-Route::get('login', [Auth\LoginController::class, 'index']);
+Route::get('', [Auth\LoginController::class, 'index']);
 Route::post('login', [Auth\LoginController::class, 'login']);
 Route::post('logout', [Auth\LoginController::class, 'logout']);
 

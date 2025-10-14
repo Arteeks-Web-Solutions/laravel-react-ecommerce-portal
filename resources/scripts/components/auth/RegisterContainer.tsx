@@ -136,7 +136,7 @@ export default function RegisterContainer() {
                             <p>
                                 Already have an account?{' '}
                                 <Link
-                                    to='/auth/login'
+                                    to='/auth'
                                     className='text-gray-900 font-semibold hover:underline'
                                 >
                                     Log in

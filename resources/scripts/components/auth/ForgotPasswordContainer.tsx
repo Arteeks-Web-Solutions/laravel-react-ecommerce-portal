@@ -99,7 +99,7 @@ export default function ForgotPasswordContainer() {
 
                         <div className='text-center mt-4 text-sm text-gray-600'>
                             <Link
-                                to='/auth/login'
+                                to='/auth'
                                 className='text-gray-900 font-semibold hover:underline'
                             >
                                 Back to login
