@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Package, User, MapPin, CreditCard } from 'lucide-react';
 import { mockOrders, mockUser } from '@/data/mockData';
 
-export default function ClientArea() {
+export default function ClientContainer() {
     const [activeTab, setActiveTab] = useState<'orders' | 'profile'>('orders');
 
     const getStatusColor = (status: string) => {

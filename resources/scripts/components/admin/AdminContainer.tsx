@@ -3,7 +3,7 @@ import { Package, Users, TrendingUp, DollarSign, Plus, Edit2, Trash2 } from 'luc
 import { mockProducts, mockOrders } from '@/data/mockData';
 import type { Product } from '@/types/models';
 
-export default function AdminArea() {
+export default function AdminContainer() {
     const [activeTab, setActiveTab] = useState<'dashboard' | 'products' | 'orders'>('dashboard');
     const [products, setProducts] = useState<Product[]>(mockProducts);
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);

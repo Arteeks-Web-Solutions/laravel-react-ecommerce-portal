@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function NotFound() {
     return (
-        <div className='min-h-screen bg-gray-50 flex flex-col justify-center items-center text-center px-4'>
+        <div className='bg-gray-50 flex flex-col justify-center items-center text-center px-4 mt-24'>
             <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-xl shadow-lg p-12 max-w-md'>
                 <h1 className='text-6xl md:text-7xl font-extrabold mb-4'>404</h1>
                 <h2 className='text-2xl md:text-3xl font-bold mb-2'>Pagina niet gevonden</h2>

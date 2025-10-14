@@ -7,7 +7,7 @@ interface ShopProps {
     onAddToCart: (product: Product) => void;
 }
 
-export default function Shop({ onAddToCart }: ShopProps) {
+export default function ShopContainer({ onAddToCart }: ShopProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
