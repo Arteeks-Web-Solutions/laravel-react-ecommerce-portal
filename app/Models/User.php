@@ -20,6 +20,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'street',
+        'postal_code',
+        'city',
         'password',
         'is_admin',
     ];
@@ -52,6 +55,9 @@ class User extends Authenticatable
      * Default values for specific fields in the database.
      */
     protected $attributes = [
+        'street' => null,
+        'postal_code' => null,
+        'city' => null,
         'is_admin' => false,
     ];
 }

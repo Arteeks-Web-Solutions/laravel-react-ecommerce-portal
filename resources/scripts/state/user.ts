@@ -4,6 +4,9 @@ export interface UserData {
     id: number;
     name: string;
     email: string;
+    street?: string;
+    postalCode?: string;
+    city?: string;
     isAdmin: boolean;
     createdAt: Date;
     updatedAt: Date;
