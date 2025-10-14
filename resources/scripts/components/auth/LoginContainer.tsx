@@ -89,7 +89,7 @@ export default function LoginContainer() {
 
                         <div className='text-right mb-6'>
                             <Link
-                                to='/auth/forgot-password'
+                                to='/auth/password/email'
                                 className='text-sm text-gray-500 hover:text-gray-900 font-medium underline'
                             >
                                 Forgot your password?

@@ -8,7 +8,7 @@ export default () => {
         <Routes>
             <Route path='/login' element={<LoginContainer />} />
             <Route path='/register' element={<RegisterContainer />} />
-            <Route path='/forgot-password' element={<ForgotPasswordContainer />} />
+            <Route path='/password/email' element={<ForgotPasswordContainer />} />
         </Routes>
     );
 };

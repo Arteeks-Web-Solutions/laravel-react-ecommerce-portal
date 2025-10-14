@@ -6,6 +6,8 @@ use TechStore\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use TechStore\Services\RecaptchaService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 use TechStore\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -37,10 +39,20 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct(private RecaptchaService $recaptcha)
+    public function __construct(private RecaptchaService $recaptcha, private Factory $view)
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    /**
+     * Handle all incoming requests for the authentication routes and render the
+     * base authentication view component. React will take over at this point and
+     * turn the login area into an SPA.
+     */
+    public function index(): View
+    {
+        return $this->view->make('app');
     }
 
     /**
