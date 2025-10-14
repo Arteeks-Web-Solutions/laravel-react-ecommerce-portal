@@ -1,9 +1,10 @@
 <?php
 
-namespace TechStore\Http\Controllers;
+namespace TechStore\Http\Controllers\Api\Client;
 
 use TechStore\Http\Resources\UserResource;
 use Illuminate\Http\Request;
+use TechStore\Http\Controllers\Controller;
 
 class UserController extends Controller
 {

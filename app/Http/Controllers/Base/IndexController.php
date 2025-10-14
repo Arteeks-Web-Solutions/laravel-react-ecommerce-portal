@@ -1,13 +1,12 @@
 <?php
 
-namespace TechStore\Http\Controllers\Admin;
+namespace TechStore\Http\Controllers\Base;
 
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use TechStore\Http\Controllers\Controller;
 
-class AdminController extends Controller
+class IndexController extends Controller
 {
     /**
      * Create a new controller instance.
