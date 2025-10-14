@@ -25,9 +25,9 @@ export default function ShopContainer({ onAddToCart }: ShopProps) {
         <div className='min-h-screen bg-gray-50'>
             <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white py-16'>
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-                    <h1 className='text-4xl md:text-5xl font-bold mb-4'>Welkom bij TechStore</h1>
+                    <h1 className='text-4xl md:text-5xl font-bold mb-4'>Welcome to TechStore</h1>
                     <p className='text-xl text-gray-300'>
-                        Ontdek onze premium collectie tech producten
+                        Discover our premium collection of tech products
                     </p>
                 </div>
             </div>
@@ -38,7 +38,7 @@ export default function ShopContainer({ onAddToCart }: ShopProps) {
                         <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5' />
                         <input
                             type='text'
-                            placeholder='Zoek producten...'
+                            placeholder='Search products...'
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent'
@@ -56,7 +56,7 @@ export default function ShopContainer({ onAddToCart }: ShopProps) {
                                         : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
                                 }`}
                             >
-                                {category === 'all' ? 'Alle' : category}
+                                {category === 'all' ? 'All' : category}
                             </button>
                         ))}
                     </div>
@@ -104,7 +104,7 @@ export default function ShopContainer({ onAddToCart }: ShopProps) {
                                         className='bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors flex items-center space-x-2 disabled:bg-gray-400 disabled:cursor-not-allowed'
                                     >
                                         <ShoppingCart className='w-4 h-4' />
-                                        <span>Toevoegen</span>
+                                        <span>Add</span>
                                     </button>
                                 </div>
                             </div>

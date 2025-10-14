@@ -73,7 +73,7 @@ export default function Navbar({ cartItemCount }: NavbarProps) {
                                     }
                                 >
                                     <User className='w-5 h-5' />
-                                    <span className='hidden sm:inline'>Mijn Account</span>
+                                    <span className='hidden sm:inline'>My Account</span>
                                 </NavLink>
 
                                 <NavLink

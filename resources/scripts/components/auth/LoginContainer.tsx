@@ -58,8 +58,8 @@ export default function LoginContainer() {
     return (
         <div className='bg-gray-50 flex flex-col justify-center items-center px-4 mt-24'>
             <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-t-xl shadow-lg px-8 py-6 w-full max-w-md text-center'>
-                <h1 className='text-3xl font-bold'>Welkom terug</h1>
-                <p className='text-gray-300 mt-1'>Log in om verder te gaan</p>
+                <h1 className='text-3xl font-bold'>Welcome back</h1>
+                <p className='text-gray-300 mt-1'>Log in to continue</p>
             </div>
 
             <Formik onSubmit={handleSubmit} initialValues={{ email: '', password: '' }}>
@@ -69,7 +69,7 @@ export default function LoginContainer() {
                             <Field
                                 name='email'
                                 type='email'
-                                placeholder='E-mailadres'
+                                placeholder='Email address'
                                 autoComplete='username'
                                 icon={Mail}
                                 disabled={isSubmitting}
@@ -80,7 +80,7 @@ export default function LoginContainer() {
                             <Field
                                 name='password'
                                 type='password'
-                                placeholder='Wachtwoord'
+                                placeholder='Password'
                                 autoComplete='current-password'
                                 icon={Lock}
                                 disabled={isSubmitting}
@@ -92,12 +92,12 @@ export default function LoginContainer() {
                                 to='/forgot-password'
                                 className='text-sm text-gray-500 hover:text-gray-900 font-medium underline'
                             >
-                                Wachtwoord vergeten?
+                                Forgot your password?
                             </Link>
                         </div>
 
                         <Button onClick={submitForm} isLoading={isSubmitting}>
-                            Inloggen
+                            Login
                         </Button>
 
                         <Reaptcha
@@ -116,12 +116,12 @@ export default function LoginContainer() {
 
                         <div className='text-center mt-4 text-sm text-gray-600'>
                             <p>
-                                Nog geen account?{' '}
+                                Don't have an account yet?{' '}
                                 <Link
                                     to='/register'
                                     className='text-gray-900 font-semibold hover:underline'
                                 >
-                                    Registreer hier
+                                    Register here
                                 </Link>
                             </p>
                         </div>

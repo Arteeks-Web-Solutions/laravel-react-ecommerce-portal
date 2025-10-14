@@ -61,8 +61,8 @@ export default function ForgotPasswordContainer() {
     return (
         <div className='bg-gray-50 flex flex-col justify-center items-center px-4 mt-24'>
             <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-t-xl shadow-lg px-8 py-6 w-full max-w-md text-center'>
-                <h1 className='text-3xl font-bold'>Wachtwoord vergeten?</h1>
-                <p className='text-gray-300 mt-1'>We sturen je een reset-link per e-mail</p>
+                <h1 className='text-3xl font-bold'>Forgot your password?</h1>
+                <p className='text-gray-300 mt-1'>We will send you a reset link by email</p>
             </div>
 
             <Formik onSubmit={handleSubmit} initialValues={{ email: '' }}>
@@ -72,14 +72,14 @@ export default function ForgotPasswordContainer() {
                             <Field
                                 name='email'
                                 type='email'
-                                placeholder='E-mailadres'
+                                placeholder='Email address'
                                 icon={Mail}
                                 disabled={isSubmitting}
                             />
                         </div>
 
                         <Button type='submit' isLoading={isSubmitting}>
-                            Resetlink versturen
+                            Send reset link
                         </Button>
 
                         <Reaptcha
@@ -101,7 +101,7 @@ export default function ForgotPasswordContainer() {
                                 to='/login'
                                 className='text-gray-900 font-semibold hover:underline'
                             >
-                                Terug naar inloggen
+                                Back to login
                             </Link>
                         </div>
                     </Form>

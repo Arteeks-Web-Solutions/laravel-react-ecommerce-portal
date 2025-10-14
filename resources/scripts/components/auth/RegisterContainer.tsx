@@ -60,8 +60,8 @@ export default function RegisterContainer() {
     return (
         <div className='bg-gray-50 flex flex-col justify-center items-center px-4 mt-24'>
             <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white rounded-t-xl shadow-lg px-8 py-6 w-full max-w-md text-center'>
-                <h1 className='text-3xl font-bold'>Account aanmaken</h1>
-                <p className='text-gray-300 mt-1'>Word lid van TechStore</p>
+                <h1 className='text-3xl font-bold'>Create an account</h1>
+                <p className='text-gray-300 mt-1'>Join TechStore</p>
             </div>
 
             <Formik
@@ -74,7 +74,7 @@ export default function RegisterContainer() {
                             <Field
                                 name='name'
                                 type='text'
-                                placeholder='Naam'
+                                placeholder='Name'
                                 icon={User}
                                 disabled={isSubmitting}
                             />
@@ -84,7 +84,7 @@ export default function RegisterContainer() {
                             <Field
                                 name='email'
                                 type='email'
-                                placeholder='E-mailadres'
+                                placeholder='Email address'
                                 icon={Mail}
                                 disabled={isSubmitting}
                             />
@@ -94,7 +94,7 @@ export default function RegisterContainer() {
                             <Field
                                 name='password'
                                 type='password'
-                                placeholder='Wachtwoord'
+                                placeholder='Password'
                                 icon={Lock}
                                 disabled={isSubmitting}
                             />
@@ -104,14 +104,14 @@ export default function RegisterContainer() {
                             <Field
                                 name='passwordConfirmation'
                                 type='password'
-                                placeholder='Bevestig Wachtwoord'
+                                placeholder='Confirm Password'
                                 icon={Lock}
                                 disabled={isSubmitting}
                             />
                         </div>
 
                         <Button type='submit' isLoading={isSubmitting}>
-                            Registreren
+                            Register
                         </Button>
 
                         <Reaptcha
@@ -130,7 +130,7 @@ export default function RegisterContainer() {
 
                         <div className='text-center mt-4 text-sm text-gray-600'>
                             <p>
-                                Al een account?{' '}
+                                Already have an account?{' '}
                                 <Link
                                     to='/login'
                                     className='text-gray-900 font-semibold hover:underline'

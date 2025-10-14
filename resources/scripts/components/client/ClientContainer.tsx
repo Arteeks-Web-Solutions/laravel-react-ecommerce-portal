@@ -18,25 +18,12 @@ export default function ClientContainer() {
         }
     };
 
-    const getStatusText = (status: string) => {
-        switch (status) {
-            case 'delivered':
-                return 'Bezorgd';
-            case 'shipped':
-                return 'Onderweg';
-            case 'processing':
-                return 'In behandeling';
-            default:
-                return 'In afwachting';
-        }
-    };
-
     return (
         <div className='min-h-screen bg-gray-50'>
             <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white py-12'>
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-                    <h1 className='text-3xl md:text-4xl font-bold'>Mijn Account</h1>
-                    <p className='text-gray-300 mt-2'>Beheer je bestellingen en profiel</p>
+                    <h1 className='text-3xl md:text-4xl font-bold'>My Account</h1>
+                    <p className='text-gray-300 mt-2'>Manage your orders and profile</p>
                 </div>
             </div>
 
@@ -53,7 +40,7 @@ export default function ClientContainer() {
                                 }`}
                             >
                                 <Package className='w-5 h-5 inline-block mr-2' />
-                                Mijn Bestellingen
+                                My Orders
                             </button>
                             <button
                                 onClick={() => setActiveTab('profile')}
@@ -64,7 +51,7 @@ export default function ClientContainer() {
                                 }`}
                             >
                                 <User className='w-5 h-5 inline-block mr-2' />
-                                Profiel
+                                Profile
                             </button>
                         </nav>
                     </div>
@@ -80,7 +67,7 @@ export default function ClientContainer() {
                                 <div className='flex flex-col md:flex-row md:items-center justify-between mb-4'>
                                     <div>
                                         <h3 className='text-lg font-bold text-gray-900'>
-                                            Bestelling {order.id}
+                                            Order {order.id}
                                         </h3>
                                         <p className='text-gray-500 text-sm'>
                                             {new Date(order.date).toLocaleDateString('nl-NL', {
@@ -92,9 +79,9 @@ export default function ClientContainer() {
                                     </div>
                                     <div className='mt-3 md:mt-0 flex items-center space-x-4'>
                                         <span
-                                            className={`px-4 py-2 rounded-full text-sm font-semibold ${getStatusColor(order.status)}`}
+                                            className={`px-4 py-2 rounded-full text-sm capitalize font-semibold ${getStatusColor(order.status)}`}
                                         >
-                                            {getStatusText(order.status)}
+                                            {order.status}
                                         </span>
                                         <span className='text-xl font-bold text-gray-900'>
                                             €{order.total.toFixed(2)}
@@ -104,7 +91,7 @@ export default function ClientContainer() {
 
                                 <div className='border-t border-gray-200 pt-4'>
                                     <h4 className='text-sm font-semibold text-gray-700 mb-3'>
-                                        Producten:
+                                        Products:
                                     </h4>
                                     <div className='space-y-2'>
                                         {order.items.map((item, idx) => (
@@ -135,14 +122,12 @@ export default function ClientContainer() {
                         <div className='bg-white rounded-xl shadow-sm p-6'>
                             <div className='flex items-center mb-4'>
                                 <User className='w-6 h-6 text-gray-900 mr-3' />
-                                <h3 className='text-xl font-bold text-gray-900'>
-                                    Persoonlijke Gegevens
-                                </h3>
+                                <h3 className='text-xl font-bold text-gray-900'>Personal Data</h3>
                             </div>
                             <div className='space-y-4'>
                                 <div>
                                     <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                        Naam
+                                        Name
                                     </label>
                                     <input
                                         type='text'
@@ -161,7 +146,7 @@ export default function ClientContainer() {
                                     />
                                 </div>
                                 <button className='w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-colors font-medium'>
-                                    Opslaan
+                                    Save
                                 </button>
                             </div>
                         </div>
@@ -169,12 +154,12 @@ export default function ClientContainer() {
                         <div className='bg-white rounded-xl shadow-sm p-6'>
                             <div className='flex items-center mb-4'>
                                 <MapPin className='w-6 h-6 text-gray-900 mr-3' />
-                                <h3 className='text-xl font-bold text-gray-900'>Adres</h3>
+                                <h3 className='text-xl font-bold text-gray-900'>Adress</h3>
                             </div>
                             <div className='space-y-4'>
                                 <div>
                                     <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                        Straat
+                                        Street
                                     </label>
                                     <input
                                         type='text'
@@ -185,7 +170,7 @@ export default function ClientContainer() {
                                 <div className='grid grid-cols-2 gap-4'>
                                     <div>
                                         <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                            Postcode
+                                            Postal code
                                         </label>
                                         <input
                                             type='text'
@@ -195,7 +180,7 @@ export default function ClientContainer() {
                                     </div>
                                     <div>
                                         <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                            Plaats
+                                            City
                                         </label>
                                         <input
                                             type='text'
@@ -205,7 +190,7 @@ export default function ClientContainer() {
                                     </div>
                                 </div>
                                 <button className='w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-colors font-medium'>
-                                    Opslaan
+                                    Save
                                 </button>
                             </div>
                         </div>
@@ -213,7 +198,7 @@ export default function ClientContainer() {
                         <div className='bg-white rounded-xl shadow-sm p-6'>
                             <div className='flex items-center mb-4'>
                                 <CreditCard className='w-6 h-6 text-gray-900 mr-3' />
-                                <h3 className='text-xl font-bold text-gray-900'>Betaalmethoden</h3>
+                                <h3 className='text-xl font-bold text-gray-900'>Payment methods</h3>
                             </div>
                             <div className='space-y-3'>
                                 <div className='border border-gray-300 rounded-lg p-4 flex items-center justify-between'>
@@ -221,15 +206,15 @@ export default function ClientContainer() {
                                         <div className='w-12 h-8 bg-gradient-to-r from-blue-600 to-blue-400 rounded'></div>
                                         <div className='ml-3'>
                                             <p className='font-medium text-gray-900'>•••• 4242</p>
-                                            <p className='text-sm text-gray-500'>Verloopt 12/25</p>
+                                            <p className='text-sm text-gray-500'>Expires 12/25</p>
                                         </div>
                                     </div>
                                     <span className='text-xs font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full'>
-                                        Standaard
+                                        Default
                                     </span>
                                 </div>
                                 <button className='w-full border-2 border-dashed border-gray-300 text-gray-600 py-3 rounded-lg hover:border-gray-900 hover:text-gray-900 transition-colors font-medium'>
-                                    + Nieuwe Kaart Toevoegen
+                                    + Add New Card
                                 </button>
                             </div>
                         </div>

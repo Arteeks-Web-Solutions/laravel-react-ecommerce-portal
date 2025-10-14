@@ -15,28 +15,28 @@ export default function AdminContainer() {
 
     const stats = [
         {
-            label: 'Totale Omzet',
+            label: 'Total Revenue',
             value: `€${totalRevenue.toFixed(2)}`,
             icon: DollarSign,
             color: 'bg-green-100 text-green-600',
             bgColor: 'bg-green-50',
         },
         {
-            label: 'Bestellingen',
+            label: 'Orders',
             value: totalOrders,
             icon: Package,
             color: 'bg-blue-100 text-blue-600',
             bgColor: 'bg-blue-50',
         },
         {
-            label: 'Producten',
+            label: 'Products',
             value: totalProducts,
             icon: TrendingUp,
             color: 'bg-orange-100 text-orange-600',
             bgColor: 'bg-orange-50',
         },
         {
-            label: 'Klanten',
+            label: 'Customers',
             value: totalCustomers,
             icon: Users,
             color: 'bg-purple-100 text-purple-600',
@@ -60,7 +60,7 @@ export default function AdminContainer() {
             <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white py-12'>
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                     <h1 className='text-3xl md:text-4xl font-bold'>Admin Dashboard</h1>
-                    <p className='text-gray-300 mt-2'>Beheer je webshop</p>
+                    <p className='text-gray-300 mt-2'>Manage your webshop</p>
                 </div>
             </div>
 
@@ -88,7 +88,7 @@ export default function AdminContainer() {
                                 }`}
                             >
                                 <Package className='w-5 h-5 inline-block mr-2' />
-                                Producten
+                                Products
                             </button>
                             <button
                                 onClick={() => setActiveTab('orders')}
@@ -99,7 +99,7 @@ export default function AdminContainer() {
                                 }`}
                             >
                                 <Package className='w-5 h-5 inline-block mr-2' />
-                                Bestellingen
+                                Orders
                             </button>
                         </nav>
                     </div>
@@ -133,7 +133,7 @@ export default function AdminContainer() {
                         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
                             <div className='bg-white rounded-xl shadow-sm p-6'>
                                 <h3 className='text-xl font-bold text-gray-900 mb-4'>
-                                    Recente Bestellingen
+                                    Recent Orders
                                 </h3>
                                 <div className='space-y-3'>
                                     {mockOrders.slice(0, 5).map((order) => (
@@ -161,7 +161,7 @@ export default function AdminContainer() {
 
                             <div className='bg-white rounded-xl shadow-sm p-6'>
                                 <h3 className='text-xl font-bold text-gray-900 mb-4'>
-                                    Populaire Producten
+                                    Popular Products
                                 </h3>
                                 <div className='space-y-3'>
                                     {products.slice(0, 5).map((product, idx) => (
@@ -178,7 +178,7 @@ export default function AdminContainer() {
                                                         {product.name}
                                                     </p>
                                                     <p className='text-sm text-gray-500'>
-                                                        Voorraad: {product.stock}
+                                                        Stock: {product.stock}
                                                     </p>
                                                 </div>
                                             </div>
@@ -196,10 +196,10 @@ export default function AdminContainer() {
                 {activeTab === 'products' && (
                     <div>
                         <div className='flex justify-between items-center mb-6'>
-                            <h2 className='text-2xl font-bold text-gray-900'>Product Beheer</h2>
+                            <h2 className='text-2xl font-bold text-gray-900'>Product Management</h2>
                             <button className='bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center space-x-2 font-medium'>
                                 <Plus className='w-5 h-5' />
-                                <span>Nieuw Product</span>
+                                <span>New Product</span>
                             </button>
                         </div>
 
@@ -212,16 +212,16 @@ export default function AdminContainer() {
                                                 Product
                                             </th>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                                Categorie
+                                                Category
                                             </th>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                                Prijs
+                                                Price
                                             </th>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                                Voorraad
+                                                Stock
                                             </th>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                                Acties
+                                                Actions
                                             </th>
                                         </tr>
                                     </thead>
@@ -294,19 +294,17 @@ export default function AdminContainer() {
 
                 {activeTab === 'orders' && (
                     <div>
-                        <h2 className='text-2xl font-bold text-gray-900 mb-6'>
-                            Bestellingen Overzicht
-                        </h2>
+                        <h2 className='text-2xl font-bold text-gray-900 mb-6'>Orders Overview</h2>
                         <div className='bg-white rounded-xl shadow-sm overflow-hidden'>
                             <div className='overflow-x-auto'>
                                 <table className='w-full'>
                                     <thead className='bg-gray-50 border-b border-gray-200'>
                                         <tr>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                                Bestelling ID
+                                                Order ID
                                             </th>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                                Datum
+                                                Date
                                             </th>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
                                                 Status
@@ -315,7 +313,7 @@ export default function AdminContainer() {
                                                 Items
                                             </th>
                                             <th className='px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-                                                Totaal
+                                                Total
                                             </th>
                                         </tr>
                                     </thead>
@@ -376,13 +374,13 @@ export default function AdminContainer() {
             </div>
 
             {editingProduct && (
-                <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50'>
+                <div className='fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50'>
                     <div className='bg-white rounded-xl max-w-2xl w-full p-6'>
-                        <h3 className='text-2xl font-bold text-gray-900 mb-4'>Product Bewerken</h3>
+                        <h3 className='text-2xl font-bold text-gray-900 mb-4'>Edit Product</h3>
                         <div className='space-y-4'>
                             <div>
                                 <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                    Naam
+                                    Name
                                 </label>
                                 <input
                                     type='text'
@@ -398,7 +396,7 @@ export default function AdminContainer() {
                             </div>
                             <div>
                                 <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                    Beschrijving
+                                    Description
                                 </label>
                                 <textarea
                                     value={editingProduct.description}
@@ -415,7 +413,7 @@ export default function AdminContainer() {
                             <div className='grid grid-cols-2 gap-4'>
                                 <div>
                                     <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                        Prijs
+                                        Price
                                     </label>
                                     <input
                                         type='number'
@@ -432,7 +430,7 @@ export default function AdminContainer() {
                                 </div>
                                 <div>
                                     <label className='block text-sm font-medium text-gray-700 mb-1'>
-                                        Voorraad
+                                        Stock
                                     </label>
                                     <input
                                         type='number'
@@ -452,13 +450,13 @@ export default function AdminContainer() {
                                     onClick={handleSaveProduct}
                                     className='flex-1 bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-colors font-medium'
                                 >
-                                    Opslaan
+                                    Save
                                 </button>
                                 <button
                                     onClick={() => setEditingProduct(null)}
                                     className='flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium'
                                 >
-                                    Annuleren
+                                    Cancel
                                 </button>
                             </div>
                         </div>
