@@ -70,7 +70,7 @@ export default function LoginContainer() {
                                 name='email'
                                 type='email'
                                 placeholder='Email address'
-                                autoComplete='username'
+                                autoComplete='email'
                                 icon={Mail}
                                 disabled={isSubmitting}
                             />
@@ -89,7 +89,7 @@ export default function LoginContainer() {
 
                         <div className='text-right mb-6'>
                             <Link
-                                to='/forgot-password'
+                                to='/auth/forgot-password'
                                 className='text-sm text-gray-500 hover:text-gray-900 font-medium underline'
                             >
                                 Forgot your password?
@@ -118,7 +118,7 @@ export default function LoginContainer() {
                             <p>
                                 Don't have an account yet?{' '}
                                 <Link
-                                    to='/register'
+                                    to='/auth/register'
                                     className='text-gray-900 font-semibold hover:underline'
                                 >
                                     Register here

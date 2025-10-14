@@ -75,6 +75,7 @@ export default function RegisterContainer() {
                                 name='name'
                                 type='text'
                                 placeholder='Name'
+                                autoComplete='name'
                                 icon={User}
                                 disabled={isSubmitting}
                             />
@@ -85,6 +86,7 @@ export default function RegisterContainer() {
                                 name='email'
                                 type='email'
                                 placeholder='Email address'
+                                autoComplete='email'
                                 icon={Mail}
                                 disabled={isSubmitting}
                             />
@@ -95,6 +97,7 @@ export default function RegisterContainer() {
                                 name='password'
                                 type='password'
                                 placeholder='Password'
+                                autoComplete='new-password'
                                 icon={Lock}
                                 disabled={isSubmitting}
                             />
@@ -105,6 +108,7 @@ export default function RegisterContainer() {
                                 name='passwordConfirmation'
                                 type='password'
                                 placeholder='Confirm Password'
+                                autoComplete='new-password'
                                 icon={Lock}
                                 disabled={isSubmitting}
                             />
@@ -132,7 +136,7 @@ export default function RegisterContainer() {
                             <p>
                                 Already have an account?{' '}
                                 <Link
-                                    to='/login'
+                                    to='/auth/login'
                                     className='text-gray-900 font-semibold hover:underline'
                                 >
                                     Log in

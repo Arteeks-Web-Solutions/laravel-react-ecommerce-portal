@@ -100,7 +100,7 @@ export default function Navbar({ cartItemCount }: NavbarProps) {
                             </>
                         ) : (
                             <NavLink
-                                to='/login'
+                                to='/auth/login'
                                 className={({ isActive }) =>
                                     `flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
                                         isActive

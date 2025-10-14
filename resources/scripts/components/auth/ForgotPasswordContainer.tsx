@@ -73,6 +73,7 @@ export default function ForgotPasswordContainer() {
                                 name='email'
                                 type='email'
                                 placeholder='Email address'
+                                autoComplete='email'
                                 icon={Mail}
                                 disabled={isSubmitting}
                             />
@@ -98,7 +99,7 @@ export default function ForgotPasswordContainer() {
 
                         <div className='text-center mt-4 text-sm text-gray-600'>
                             <Link
-                                to='/login'
+                                to='/auth/login'
                                 className='text-gray-900 font-semibold hover:underline'
                             >
                                 Back to login

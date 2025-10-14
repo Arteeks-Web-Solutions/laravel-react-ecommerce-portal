@@ -1,12 +1,10 @@
 import receiveUser from '@/api/receiveUser';
 import AdminContainer from '@/components/admin/AdminContainer';
-import ForgotPasswordContainer from '@/components/auth/ForgotPasswordContainer';
-import LoginContainer from '@/components/auth/LoginContainer';
-import RegisterContainer from '@/components/auth/RegisterContainer';
 import ClientContainer from '@/components/client/ClientContainer';
 import NotFound from '@/components/exceptions/NotFound';
 import Navbar from '@/components/Navbar';
 import ShopContainer from '@/components/shop/ShopContainer';
+import AuthenticationRouter from '@/routers/AuthenticationRouter';
 import { useStoreActions } from '@/state/hooks';
 import type { Product } from '@/types/models';
 import { useEffect, useState } from 'react';
@@ -37,9 +35,7 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<ShopContainer onAddToCart={handleAddToCart} />} />
 
-                    <Route path='/login' element={<LoginContainer />} />
-                    <Route path='/register' element={<RegisterContainer />} />
-                    <Route path='/forgot-password' element={<ForgotPasswordContainer />} />
+                    <Route path='/auth/*' element={<AuthenticationRouter />} />
 
                     <Route path='/client' element={<ClientContainer />} />
                     <Route path='/admin' element={<AdminContainer />} />
