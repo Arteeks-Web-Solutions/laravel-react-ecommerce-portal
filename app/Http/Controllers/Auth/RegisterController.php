@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace TechStore\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use App\Services\RecaptchaService;
+use TechStore\Http\Controllers\Controller;
+use TechStore\Http\Resources\UserResource;
+use TechStore\Models\User;
+use TechStore\Services\RecaptchaService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
@@ -66,7 +66,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return \TechStore\Models\User
      */
     protected function create(array $data)
     {

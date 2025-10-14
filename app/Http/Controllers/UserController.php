@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace TechStore\Http\Controllers;
 
-use App\Http\Resources\UserResource;
+use TechStore\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
 class UserController extends Controller

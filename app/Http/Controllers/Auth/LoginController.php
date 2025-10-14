@@ -1,21 +1,42 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace TechStore\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use TechStore\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Services\RecaptchaService;
-use App\Http\Resources\UserResource;
+use TechStore\Services\RecaptchaService;
+use TechStore\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
     use AuthenticatesUsers;
 
+    /**
+     * Where to redirect users when the intended url fails.
+     *
+     * @var string
+     */
     protected $redirectTo = '/';
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct(private RecaptchaService $recaptcha)
     {
         $this->middleware('guest')->except('logout');

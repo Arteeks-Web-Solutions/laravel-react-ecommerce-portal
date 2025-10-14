@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace TechStore\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Services\RecaptchaService;
+use TechStore\Http\Controllers\Controller;
+use TechStore\Services\RecaptchaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Http\JsonResponse;
