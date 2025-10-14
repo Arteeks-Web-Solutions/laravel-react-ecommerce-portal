@@ -1,5 +1,6 @@
 import http from '@/api/http';
 import type { UserData } from '@/state/user';
+import { rawDataToUser } from '../transformers';
 
 export interface LoginData {
     email: string;
@@ -24,7 +25,7 @@ export default ({ email, password, recaptchaData }: LoginData): Promise<UserData
                     );
                 }
 
-                return resolve(response.data.data);
+                return resolve(rawDataToUser(response.data));
             })
             .catch(reject);
     });

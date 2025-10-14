@@ -1,5 +1,6 @@
 import http from '@/api/http';
 import type { UserData } from '@/state/user';
+import { rawDataToUser } from '../transformers';
 
 export interface RegisterData {
     name: string;
@@ -34,7 +35,7 @@ export default ({
                     );
                 }
 
-                return resolve(response.data.data);
+                return resolve(rawDataToUser(response.data));
             })
             .catch(reject);
     });
