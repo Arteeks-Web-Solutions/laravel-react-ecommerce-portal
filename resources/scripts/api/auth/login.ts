@@ -1,6 +1,6 @@
 import http from '@/api/http';
 import type { UserData } from '@/state/user';
-import { rawDataToUser } from '../transformers';
+import { rawDataToUser } from '@/api/transformers';
 
 export interface LoginData {
     email: string;

@@ -1,8 +1,8 @@
 import receiveUser from '@/api/receiveUser';
-import AdminContainer from '@/components/admin/AdminContainer';
 import NotFound from '@/components/exceptions/NotFound';
 import Navbar from '@/components/Navbar';
 import ShopContainer from '@/components/shop/ShopContainer';
+import AdminRouter from '@/routers/AdminRouter';
 import AuthenticationRouter from '@/routers/AuthenticationRouter';
 import ClientRouter from '@/routers/ClientRouter';
 import { useStoreActions } from '@/state/hooks';
@@ -37,8 +37,8 @@ export default function App() {
 
                     <Route path='/auth/*' element={<AuthenticationRouter />} />
                     <Route path='/client/*' element={<ClientRouter />} />
+                    <Route path='/admin/*' element={<AdminRouter />} />
 
-                    <Route path='/admin' element={<AdminContainer />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
             </div>

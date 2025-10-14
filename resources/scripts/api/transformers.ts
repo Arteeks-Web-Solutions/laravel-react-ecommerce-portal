@@ -1,5 +1,5 @@
 import type { UserData } from '@/state/user';
-import type { FractalResponseData } from './http';
+import type { FractalResponseData } from '@/api/http';
 
 export const rawDataToUser = ({ data }: FractalResponseData): UserData => ({
     id: data.id,
