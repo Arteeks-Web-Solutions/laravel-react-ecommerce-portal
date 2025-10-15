@@ -82,7 +82,7 @@ class RegisterController extends Controller
      */
     public function register(Request $request): JsonResponse|RedirectResponse|UserResource
     {
-        $this->validator($request->all())->validate();
+        $data = $this->validator($request->all())->validate();
 
         if (!$this->recaptcha->verify($request->input('g-recaptcha-response'))) {
             return response()->json([
@@ -90,7 +90,7 @@ class RegisterController extends Controller
             ], 422);
         }
 
-        $user = $this->create($request->all());
+        $user = $this->create($data);
 
         event(new Registered($user));
 
