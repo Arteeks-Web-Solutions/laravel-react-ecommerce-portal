@@ -11,7 +11,11 @@ export default function Spinner({ size = 'medium', centered = false }: SpinnerPr
     };
 
     return (
-        <div className={centered ? 'flex items-center justify-center m-20' : 'm-6'}>
+        <div
+            className={
+                centered ? `flex items-center justify-center ${size === 'large' && 'm-20'}` : ''
+            }
+        >
             <div
                 className={`${sizeClasses[size]} border-gray-300 border-t-gray-900 rounded-full animate-spin`}
             ></div>

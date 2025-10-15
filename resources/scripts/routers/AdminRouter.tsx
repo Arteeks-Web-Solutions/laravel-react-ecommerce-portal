@@ -1,6 +1,6 @@
 import DashboardContainer from '@/components/admin/DashboardContainer';
 import OrdersContainer from '@/components/admin/OrdersContainer';
-import ProductsContainer from '@/components/admin/ProductsContainer';
+import ProductsContainer from '@/components/admin/products/ProductsContainer';
 import { Package, TrendingUp } from 'lucide-react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 

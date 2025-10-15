@@ -96,7 +96,7 @@ export default function LoginContainer() {
                             </Link>
                         </div>
 
-                        <Button onClick={submitForm} isLoading={isSubmitting}>
+                        <Button onClick={submitForm} isLoading={isSubmitting} fullWidth>
                             Login
                         </Button>
 

@@ -79,7 +79,7 @@ export default function ForgotPasswordContainer() {
                             />
                         </div>
 
-                        <Button type='submit' isLoading={isSubmitting}>
+                        <Button type='submit' isLoading={isSubmitting} fullWidth>
                             Send reset link
                         </Button>
 

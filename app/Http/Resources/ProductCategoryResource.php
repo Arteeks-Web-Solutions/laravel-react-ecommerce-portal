@@ -4,23 +4,18 @@ namespace TechStore\Http\Resources;
 
 use Illuminate\Http\Request;
 
-class UserResource extends BaseResource
+class ProductCategoryResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
      */
-    protected function transformData(Request $request): array
+    public function transformData(Request $request): array
     {
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'street' => $this->street,
-            'postal_code' => $this->postal_code,
-            'city' => $this->city,
-            'is_admin' => $this->is_admin,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
         ];

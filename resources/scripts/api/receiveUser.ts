@@ -1,9 +1,8 @@
 import http from '@/api/http';
 import type { UserData } from '@/state/user';
-import { rawDataToUser } from '@/api/transformers';
 
-export default async (): Promise<UserData | null> => {
+export default async (): Promise<UserData | undefined> => {
     const { data } = await http.get('/api/client/user');
 
-    return data ? rawDataToUser(data) : null;
+    return data ?? undefined;
 };

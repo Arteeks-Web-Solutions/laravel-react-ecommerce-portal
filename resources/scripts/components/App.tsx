@@ -10,6 +10,7 @@ import type { Product } from '@/types/models';
 import { useEffect, useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { SWRConfig } from 'swr';
 
 export default function App() {
     const setUserData = useStoreActions((actions) => actions.user.setUserData);
@@ -22,26 +23,33 @@ export default function App() {
 
     useEffect(() => {
         receiveUser()
-            .then((data) => data && setUserData(data))
+            .then((data) => setUserData(data))
             .catch((err) => console.error('Failed to load user', err));
     }, [setUserData]);
 
     return (
-        <Router>
-            <div className='min-h-screen bg-gray-50'>
-                <Navbar cartItemCount={cartItems.length} />
-                <ToastContainer />
+        <SWRConfig
+            value={{
+                revalidateOnFocus: false,
+                revalidateOnReconnect: false,
+            }}
+        >
+            <Router>
+                <div className='min-h-screen bg-gray-50'>
+                    <Navbar cartItemCount={cartItems.length} />
+                    <ToastContainer />
 
-                <Routes>
-                    <Route path='/' element={<ShopContainer onAddToCart={handleAddToCart} />} />
+                    <Routes>
+                        <Route path='/' element={<ShopContainer onAddToCart={handleAddToCart} />} />
 
-                    <Route path='/auth/*' element={<AuthenticationRouter />} />
-                    <Route path='/client/*' element={<ClientRouter />} />
-                    <Route path='/admin/*' element={<AdminRouter />} />
+                        <Route path='/auth/*' element={<AuthenticationRouter />} />
+                        <Route path='/client/*' element={<ClientRouter />} />
+                        <Route path='/admin/*' element={<AdminRouter />} />
 
-                    <Route path='*' element={<NotFound />} />
-                </Routes>
-            </div>
-        </Router>
+                        <Route path='*' element={<NotFound />} />
+                    </Routes>
+                </div>
+            </Router>
+        </SWRConfig>
     );
 }

@@ -114,7 +114,7 @@ export default function RegisterContainer() {
                             />
                         </div>
 
-                        <Button type='submit' isLoading={isSubmitting}>
+                        <Button type='submit' isLoading={isSubmitting} fullWidth>
                             Register
                         </Button>
 

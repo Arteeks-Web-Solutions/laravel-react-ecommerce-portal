@@ -73,7 +73,7 @@ export default function ProfileContainer() {
                         <Form className='space-y-4'>
                             <Field name='name' type='text' label='Name' className='mt-1' />
                             <Field name='email' type='email' label='Email' className='mt-1' />
-                            <Button onClick={submitForm} isLoading={isSubmitting}>
+                            <Button onClick={submitForm} isLoading={isSubmitting} fullWidth>
                                 Save
                             </Button>
                         </Form>
@@ -124,7 +124,7 @@ export default function ProfileContainer() {
                                     />
                                 </div>
                             </div>
-                            <Button onClick={submitForm} isLoading={isSubmitting}>
+                            <Button onClick={submitForm} isLoading={isSubmitting} fullWidth>
                                 Save
                             </Button>
                         </Form>

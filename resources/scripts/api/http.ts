@@ -1,4 +1,4 @@
-import axios, { AxiosError, type AxiosInstance } from 'axios';
+import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 
 const http: AxiosInstance = axios.create({
@@ -12,11 +12,19 @@ const http: AxiosInstance = axios.create({
 });
 
 http.interceptors.response.use(
-    (response) => response,
-    (error) => {
+    (response: AxiosResponse) => {
+        // Laravel's API responses are always wrapped in a `data` object, so if that exists,
+        // unwrap it so that callers don't need to do `response.data.data`.
+        if (response.data && response.data.data !== undefined) {
+            response.data = response.data.data;
+        }
+
+        return response;
+    },
+    (error: AxiosError) => {
         if (error.response?.status === 401) {
             // prevent 401 AxiosError's from spamming the console if a user is not logged in.
-            return Promise.resolve({ data: null });
+            return Promise.resolve({ data: null } as AxiosResponse);
         }
         return Promise.reject(error);
     },
@@ -24,24 +32,7 @@ http.interceptors.response.use(
 
 export default http;
 
-export interface FractalResponseData {
-    object: string;
-    data: {
-        // using any typing here is fine, as this is just a passthrough for the data
-        [k: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-        relationships?: Record<
-            string,
-            FractalResponseData | FractalResponseList | null | undefined
-        >;
-    };
-}
-
-export interface FractalResponseList {
-    object: 'list';
-    data: FractalResponseData[];
-}
-
-type ValidationErrorResponse = {
+type HttpErrorResponse = {
     message?: string;
     errors?: Record<string, string[]>;
 };
@@ -55,21 +46,23 @@ export function AddHttpError(error: AxiosError) {
         if (typeof data === 'string') {
             try {
                 data = JSON.parse(data);
-            } catch (e) {
+            } catch {
                 // do nothing, bad json
             }
         }
 
-        const validationError = data as ValidationErrorResponse;
+        const httpError = data as HttpErrorResponse;
 
-        if (validationError.errors) {
-            Object.values(validationError.errors).forEach((messages) => {
+        if (httpError.errors) {
+            Object.values(httpError.errors).forEach((messages) => {
                 messages.forEach((message) => {
                     toast.error(message);
                 });
             });
 
             return;
+        } else {
+            return toast.error(httpError.message);
         }
     }
 
