@@ -6,6 +6,7 @@ interface ModalProps {
     children?: React.ReactNode;
     onDismiss?: () => void;
     widthClass?: string;
+    dismissable?: boolean;
 }
 
 export default function Modal({
@@ -14,15 +15,16 @@ export default function Modal({
     children,
     onDismiss,
     widthClass = 'max-w-2xl',
+    dismissable = true,
 }: ModalProps) {
     const handleBackdropClick = useCallback(
         (event: React.MouseEvent<HTMLDivElement>) => {
             // Only dismiss if the click was directly on the backdrop (not a child)
-            if (event.target === event.currentTarget && onDismiss) {
+            if (dismissable && event.target === event.currentTarget && onDismiss) {
                 onDismiss();
             }
         },
-        [onDismiss],
+        [onDismiss, dismissable],
     );
 
     if (!visible) return null;
@@ -36,7 +38,7 @@ export default function Modal({
                 className={`bg-white rounded-xl ${widthClass} w-full p-6 relative`}
                 onClick={(e) => e.stopPropagation()}
             >
-                {onDismiss && (
+                {dismissable && onDismiss && (
                     <button
                         onClick={onDismiss}
                         className='absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition cursor-pointer'

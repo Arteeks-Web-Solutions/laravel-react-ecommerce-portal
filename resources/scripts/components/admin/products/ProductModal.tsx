@@ -56,23 +56,25 @@ export default function ProductModal({
     };
 
     return (
-        <Modal
-            visible={visible || !!product}
-            title={product ? 'Edit Product' : 'Create Product'}
-            onDismiss={onModalDismissed}
+        <Formik
+            onSubmit={handleSubmit}
+            initialValues={{
+                name: product?.name ?? '',
+                description: product?.description ?? '',
+                category: product?.category.id ?? categories[0]?.id ?? 0,
+                image: product?.image ?? '',
+                price: String(product?.price ?? ''),
+                stock: String(product?.stock ?? ''),
+            }}
+            enableReinitialize
         >
-            <Formik
-                onSubmit={handleSubmit}
-                initialValues={{
-                    name: product?.name ?? '',
-                    description: product?.description ?? '',
-                    category: product?.category.id ?? categories[0]?.id ?? 0,
-                    image: product?.image ?? '',
-                    price: String(product?.price ?? ''),
-                    stock: String(product?.stock ?? ''),
-                }}
-            >
-                {({ isSubmitting, submitForm }) => (
+            {({ isSubmitting, submitForm }) => (
+                <Modal
+                    visible={visible || !!product}
+                    title={product ? 'Edit Product' : 'Create Product'}
+                    onDismiss={onModalDismissed}
+                    dismissable={!isSubmitting}
+                >
                     <Form className='space-y-4'>
                         <Field name='name' type='text' label='Name' />
                         <TextareaField name='description' label='Description' rows={3} />
@@ -103,8 +105,8 @@ export default function ProductModal({
                             </Button>
                         </div>
                     </Form>
-                )}
-            </Formik>
-        </Modal>
+                </Modal>
+            )}
+        </Formik>
     );
 }
