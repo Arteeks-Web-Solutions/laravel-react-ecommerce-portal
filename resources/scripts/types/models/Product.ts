@@ -17,7 +17,7 @@ export interface Product {
     createdAt: Date;
 }
 
-export interface Cart {
+export interface CartItem {
     productId: number;
     quantity: number;
 }

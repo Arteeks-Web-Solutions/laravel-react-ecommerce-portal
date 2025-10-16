@@ -18,6 +18,7 @@ interface AddressData {
     street: string;
     postalCode: string;
     city: string;
+    country: string;
 }
 
 export default function ProfileContainer() {
@@ -44,7 +45,7 @@ export default function ProfileContainer() {
         values: AddressData,
         { setSubmitting }: FormikHelpers<AddressData>,
     ) => {
-        updateAddressData(values.street, values.postalCode, values.city)
+        updateAddressData(values.street, values.postalCode, values.city, values.country)
             .then((data) => {
                 setUserData(data);
                 toast.success('Successfully updated address data');
@@ -92,11 +93,12 @@ export default function ProfileContainer() {
                         street: user?.street ?? '',
                         postalCode: user?.postalCode ?? '',
                         city: user?.city ?? '',
+                        country: user?.country ?? '',
                     }}
                 >
                     {({ isSubmitting, submitForm }) => (
                         <Form className='space-y-4'>
-                            <div>
+                            <div className='grid grid-cols-2 gap-4'>
                                 <Field
                                     name='street'
                                     type='text'
@@ -104,25 +106,28 @@ export default function ProfileContainer() {
                                     placeholder='123 Main Street'
                                     className='mt-1'
                                 />
+                                <Field
+                                    name='postalCode'
+                                    type='text'
+                                    label='Postal code'
+                                    placeholder='1234 AB'
+                                    className='mt-1'
+                                />
                             </div>
                             <div className='grid grid-cols-2 gap-4'>
-                                <div>
-                                    <Field
-                                        name='postalCode'
-                                        type='text'
-                                        label='Postal code'
-                                        placeholder='1234 AB'
-                                        className='mt-1'
-                                    />
-                                </div>
-                                <div>
-                                    <Field
-                                        name='city'
-                                        type='text'
-                                        label='City'
-                                        placeholder='Amsterdam'
-                                    />
-                                </div>
+                                <Field
+                                    name='city'
+                                    type='text'
+                                    label='City'
+                                    placeholder='Amsterdam'
+                                />
+                                <Field
+                                    name='country'
+                                    type='text'
+                                    label='Country'
+                                    placeholder='Netherlands'
+                                    className='mt-1'
+                                />
                             </div>
                             <Button onClick={submitForm} isLoading={isSubmitting} fullWidth>
                                 Save

@@ -21,6 +21,7 @@ class UpdateAddressDataRequest extends FormRequest
                 'max:20',
             ],
             'city' => ['required', 'string', 'max:100'],
+            'country' => ['required', 'string', 'max:100'],
         ];
     }
 }

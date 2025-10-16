@@ -1,7 +1,7 @@
 import http, { AddHttpError } from '@/api/http';
 import type { UserData } from '@/state/user';
-import mergeCart from '../shop/mergeCart';
-import type { Cart } from '@/types/models';
+import mergeCart from '@/api/shop/mergeCart';
+import type { CartItem } from '@/types/models';
 
 export interface RegisterData {
     name: string;
@@ -37,7 +37,7 @@ export default ({
                 }
 
                 // Migrate the users local cart to the database
-                mergeCart(JSON.parse(localStorage.getItem('cart') || '[]') as Cart[])
+                mergeCart(JSON.parse(localStorage.getItem('cart') || '[]') as CartItem[])
                     .then(() => localStorage.removeItem('cart'))
                     .catch((error) => {
                         AddHttpError(error);

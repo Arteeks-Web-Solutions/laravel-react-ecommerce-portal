@@ -3,35 +3,28 @@ import Error from '@/components/exceptions/Error';
 import { useStoreState } from '@/state/hooks';
 import { Minus, Package, Plus, ShoppingCart, Trash } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import Button from '../elements/Button';
+import Button from '@/components/elements/Button';
 import updateCart from '@/api/shop/updateCart';
 import getCartData from '@/api/shop/getCartData';
-import type { Cart, Product } from '@/types/models';
+import type { CartItem, Product } from '@/types/models';
 import { AddHttpError } from '@/api/http';
+import { useNavigate } from 'react-router-dom';
 
 export default function CartContainer() {
+    const navigate = useNavigate();
+
     const { data, error, isValidating, mutate } = getCartData();
 
     const isAuthenticated = useStoreState((state) => !!state.user.data);
 
     // Cart state: for authenticated users we get it from backend, for guests from localStorage
-    const [cartItems, setCartItems] = useState<Cart[]>([]);
-
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchGuestCart = async () => {
         const cartRaw = localStorage.getItem('cart');
         setCartItems(cartRaw ? JSON.parse(cartRaw) : []);
     };
-
-    useEffect(() => {
-        // load cart items based on authentication status
-        if (isAuthenticated) {
-            setCartItems(data?.cart?.items ?? []);
-        } else {
-            fetchGuestCart();
-        }
-    }, [isAuthenticated, data]);
 
     const handleChangeQuantity = async (productId: number, quantity: number) => {
         if (quantity < 1) return;
@@ -83,6 +76,19 @@ export default function CartContainer() {
         return sum + product.price * item.quantity;
     }, 0);
 
+    useEffect(() => {
+        // load cart items based on authentication status
+        if (isAuthenticated) {
+            setCartItems(data?.cart?.items ?? []);
+        } else {
+            fetchGuestCart();
+        }
+    }, [isAuthenticated, data]);
+
+    useEffect(() => {
+        if (error) console.error(error);
+    }, [error]);
+
     if (error) return <Error />;
 
     return (
@@ -98,7 +104,7 @@ export default function CartContainer() {
             ) : (
                 <div>
                     <ul className='divide-y'>
-                        {cartItems.map((item: Cart) => {
+                        {cartItems.map((item: CartItem) => {
                             const product = data.products.find(
                                 (p: Product) => p.id === item.productId,
                             );
@@ -110,10 +116,10 @@ export default function CartContainer() {
                                         <img
                                             src={product.image}
                                             alt={product.name}
-                                            className='w-16 h-16 object-cover rounded'
+                                            className='w-16 h-16 min-w-16 min-h-16 object-cover rounded'
                                         />
                                     ) : (
-                                        <div className='w-16 h-16 rounded-lg bg-gray-200 flex items-center justify-center'>
+                                        <div className='w-16 h-16 min-w-16 min-h-16 rounded-lg bg-gray-200 flex items-center justify-center'>
                                             <Package className='w-10 h-10 text-gray-300' />
                                         </div>
                                     )}
@@ -152,7 +158,15 @@ export default function CartContainer() {
                                                 >
                                                     <Minus className='w-4 h-4' />
                                                 </Button>
-                                                <span>{item.quantity}</span>
+                                                <span
+                                                    className={
+                                                        item.quantity > product.stock
+                                                            ? 'text-red-500'
+                                                            : ''
+                                                    }
+                                                >
+                                                    {item.quantity}
+                                                </span>
                                                 <Button
                                                     variant='secondary'
                                                     disabled={
@@ -195,7 +209,9 @@ export default function CartContainer() {
                         </div>
                     </div>
                     <div className='flex mt-8 justify-end'>
-                        <Button>Proceed to Checkout</Button>
+                        <Button onClick={() => navigate('/shop/checkout')}>
+                            Proceed to Checkout
+                        </Button>
                     </div>
                 </div>
             )}

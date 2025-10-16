@@ -1,6 +1,7 @@
 import DashboardContainer from '@/components/admin/DashboardContainer';
 import OrdersContainer from '@/components/admin/OrdersContainer';
 import ProductsContainer from '@/components/admin/products/ProductsContainer';
+import NotFound from '@/components/exceptions/NotFound';
 import { Package, TrendingUp } from 'lucide-react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 
@@ -66,6 +67,8 @@ export default function AdminRouter() {
                     <Route path='/' element={<DashboardContainer />} />
                     <Route path='/products' element={<ProductsContainer />} />
                     <Route path='/orders' element={<OrdersContainer />} />
+
+                    <Route path='*' element={<NotFound />} />
                 </Routes>
             </div>
         </div>

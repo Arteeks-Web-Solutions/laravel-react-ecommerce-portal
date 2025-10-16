@@ -14,7 +14,8 @@ class UpdateCardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => ['required', 'integer', 'exists:products,id'],
+            // we can't use exists rule here because the product might not be available anymore
+            'product_id' => ['required', 'integer'],
             'quantity' => ['required', 'integer'],
         ];
     }

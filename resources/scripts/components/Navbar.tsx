@@ -21,7 +21,7 @@ export default function Navbar() {
         setIsLoggingOut(true);
         http.post('/auth/logout').finally(() => {
             setUserData(undefined);
-            navigate('/');
+            navigate('/shop');
             setIsLoggingOut(false);
         });
     };

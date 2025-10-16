@@ -20,6 +20,7 @@ class UserResource extends BaseResource
             'street' => $this->street,
             'postal_code' => $this->postal_code,
             'city' => $this->city,
+            'country' => $this->country,
             'is_admin' => $this->is_admin,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),

@@ -1,5 +1,6 @@
 import OrdersContainer from '@/components/client/OrdersContainer';
 import ProfileContainer from '@/components/client/ProfileContainer';
+import NotFound from '@/components/exceptions/NotFound';
 import { Package, User } from 'lucide-react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 
@@ -51,6 +52,8 @@ export default function ClientRouter() {
                 <Routes>
                     <Route path='/' element={<OrdersContainer />} />
                     <Route path='/profile' element={<ProfileContainer />} />
+
+                    <Route path='*' element={<NotFound />} />
                 </Routes>
             </div>
         </div>

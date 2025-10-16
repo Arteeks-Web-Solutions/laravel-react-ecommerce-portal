@@ -23,6 +23,7 @@ class User extends Authenticatable
         'street',
         'postal_code',
         'city',
+        'country',
         'password',
     ];
 
@@ -57,6 +58,7 @@ class User extends Authenticatable
         'street' => null,
         'postal_code' => null,
         'city' => null,
+        'country' => null,
         'is_admin' => false,
     ];
 }

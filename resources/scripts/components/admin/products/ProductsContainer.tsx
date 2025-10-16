@@ -9,10 +9,10 @@ import type { Product, ProductCategory } from '@/types/models';
 import { Form, Formik, type FormikHelpers } from 'formik';
 import { Edit2, FolderPlus, Package, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import Button from '../../elements/Button';
-import Field from '../../elements/Field';
-import Spinner from '../../elements/Spinner';
-import ProductModal from './ProductModal';
+import Button from '@/components/elements/Button';
+import Field from '@/components/elements/Field';
+import Spinner from '@/components/elements/Spinner';
+import ProductModal from '@/components/admin/products/ProductModal';
 
 interface Category {
     name: string;

@@ -7,6 +7,7 @@ export interface UserData {
     street?: string;
     postalCode?: string;
     city?: string;
+    country?: string;
     isAdmin: boolean;
     createdAt: Date;
     updatedAt: Date;

@@ -8,7 +8,7 @@ import type { Product, ProductCategory } from '@/types/models';
 import { Package, Search, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../elements/Button';
+import Button from '@/components/elements/Button';
 
 function getLocalCartCount(): number {
     const cartRaw = localStorage.getItem('cart');
