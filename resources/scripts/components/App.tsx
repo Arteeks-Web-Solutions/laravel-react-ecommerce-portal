@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { SWRConfig } from 'swr';
+import CartContainer from './shop/CartCointainer';
 
 export default function App() {
     const setUserData = useStoreActions((actions) => actions.user.setUserData);
@@ -34,6 +35,7 @@ export default function App() {
 
                     <Routes>
                         <Route path='/' element={<ShopContainer />} />
+                        <Route path='/cart' element={<CartContainer />} />
 
                         <Route path='/auth/*' element={<AuthenticationRouter />} />
                         <Route path='/client/*' element={<ClientRouter />} />

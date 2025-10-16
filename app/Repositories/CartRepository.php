@@ -17,6 +17,13 @@ class CartRepository extends BaseRepository
         parent::__construct($model);
     }
 
+    function getCartItems(int $userId): Cart|null
+    {
+        $cart = $this->model->where('user_id', $userId)->first();
+
+        return $cart ?? null;
+    }
+
     /**
      * Add a product to the user's cart.
      *

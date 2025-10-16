@@ -14,8 +14,11 @@ Route::group(['prefix' => 'shop'], function () {
     Route::get('/', [Client\ShopController::class, 'index']);
     Route::get('/products/{id}', [Client\ShopController::class, 'productDetails']);
 
-    Route::group(['prefix' => 'cart', 'middleware' => ['auth']], function () {
-        Route::post('/merge', [Client\ShopController::class, 'mergeCart']);
-        Route::post('/{product:id}', [Client\ShopController::class, 'addToCart']);
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('/', [Client\ShopController::class, 'getCart']);
+
+        Route::post('/', [Client\ShopController::class, 'updateCart']);
+        Route::post('/merge', [Client\ShopController::class, 'mergeCart'])->middleware('auth');
+        Route::post('/{product:id}', [Client\ShopController::class, 'addToCart'])->middleware('auth');
     });
 });

@@ -1,13 +1,14 @@
-import getProductsAndCategories from '@/api/shop/getProductsAndCategories';
+import { AddHttpError } from '@/api/http';
+import addToCart from '@/api/shop/addToCart';
+import getShopData from '@/api/shop/getShopData';
+import Spinner from '@/components/elements/Spinner';
+import Error from '@/components/exceptions/Error';
+import { useStoreState } from '@/state/hooks';
 import type { Product, ProductCategory } from '@/types/models';
 import { Package, Search, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import Spinner from '@/components/elements/Spinner';
-import Error from '@/components/exceptions/Error';
+import { useNavigate } from 'react-router-dom';
 import Button from '../elements/Button';
-import addToCart from '@/api/shop/addToCart';
-import { AddHttpError } from '@/api/http';
-import { useStoreState } from '@/state/hooks';
 
 function getLocalCartCount(): number {
     const cartRaw = localStorage.getItem('cart');
@@ -22,7 +23,8 @@ function getLocalCartCount(): number {
 }
 
 export default function ShopContainer() {
-    const { data, error, isValidating, mutate } = getProductsAndCategories();
+    const { data, error, isValidating, mutate } = getShopData();
+    const navigate = useNavigate();
 
     const isAuthenticated = useStoreState((state) => !!state.user.data);
 
@@ -35,15 +37,15 @@ export default function ShopContainer() {
 
         if (!isAuthenticated) {
             const cartRaw = localStorage.getItem('cart');
-            const cart: { product_id: number; quantity: number }[] = cartRaw
+            const cart: { productId: number; quantity: number }[] = cartRaw
                 ? JSON.parse(cartRaw)
                 : [];
 
-            const index = cart.findIndex((item) => item.product_id === product.id);
+            const index = cart.findIndex((item) => item.productId === product.id);
             if (index !== -1) {
                 cart[index]!.quantity += 1;
             } else {
-                cart.push({ product_id: product.id, quantity: 1 });
+                cart.push({ productId: product.id, quantity: 1 });
             }
 
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -184,6 +186,7 @@ export default function ShopContainer() {
             <button
                 className='fixed bottom-6 cursor-pointer right-6 z-50 bg-gray-900 hover:bg-gray-800 text-white rounded-full p-4 shadow-xl transition-all flex items-center focus:outline-none focus:ring-4 focus:ring-gray-500'
                 aria-label='View shopping cart'
+                onClick={() => navigate('/cart')}
                 type='button'
                 style={{
                     boxShadow: '0 8px 24px 0 rgba(0,0,0,0.15)',

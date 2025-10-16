@@ -4,7 +4,7 @@ namespace TechStore\Http\Resources;
 
 use Illuminate\Http\Request;
 
-class ProductIndexDataResource extends BaseResource
+class CartDataResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -14,10 +14,8 @@ class ProductIndexDataResource extends BaseResource
     public function transformData(Request $request): array
     {
         return [
-            'categories'  => $this->resource['categories'],
+            'cart'  => $this->resource['cart'],
             'products'    => $this->resource['products'],
-            // cart_count is optional, only included if present
-            'cart_count'  => $this->resource['cart_count'] ?? null,
         ];
     }
 }

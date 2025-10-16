@@ -7,7 +7,7 @@ use TechStore\Http\Controllers\Controller;
 use TechStore\Http\Requests\Api\Application\Products\StoreProductRequest;
 use TechStore\Http\Requests\Api\Application\Products\StoreCategoryRequest;
 use TechStore\Http\Resources\ProductCategoryResource;
-use TechStore\Http\Resources\ProductIndexDataResource;
+use TechStore\Http\Resources\ProductDataResource;
 use TechStore\Http\Resources\ProductResource;
 use TechStore\Models\Product;
 use TechStore\Models\ProductCategory;
@@ -24,9 +24,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): ProductIndexDataResource
+    public function index(): ProductDataResource
     {
-        return new ProductIndexDataResource([
+        return new ProductDataResource([
             'categories' => ProductCategoryResource::collection($this->categoryRepository->all()),
             'products' => ProductResource::collection($this->productRepository->all()->load('category')),
         ]);

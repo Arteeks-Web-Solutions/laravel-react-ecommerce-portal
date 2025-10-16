@@ -1,6 +1,7 @@
 import http, { AddHttpError } from '@/api/http';
 import type { UserData } from '@/state/user';
 import mergeCart from '@/api/shop/mergeCart';
+import type { Cart } from '@/types/models';
 
 export interface LoginData {
     email: string;
@@ -26,12 +27,7 @@ export default ({ email, password, recaptchaData }: LoginData): Promise<UserData
                 }
 
                 // Attempt to merge local cart with user's database cart
-                mergeCart(
-                    JSON.parse(localStorage.getItem('cart') || '[]') as {
-                        product_id: number;
-                        quantity: number;
-                    }[],
-                )
+                mergeCart(JSON.parse(localStorage.getItem('cart') || '[]') as Cart[])
                     .then(() => localStorage.removeItem('cart'))
                     .catch((error) => {
                         AddHttpError(error);

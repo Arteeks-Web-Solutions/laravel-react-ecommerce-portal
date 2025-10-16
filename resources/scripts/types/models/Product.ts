@@ -16,3 +16,8 @@ export interface Product {
     updatedAt: Date;
     createdAt: Date;
 }
+
+export interface Cart {
+    productId: number;
+    quantity: number;
+}
