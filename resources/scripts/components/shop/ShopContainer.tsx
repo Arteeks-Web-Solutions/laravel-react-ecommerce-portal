@@ -72,15 +72,7 @@ export default function ShopContainer() {
     if (error) return <Error />;
 
     return (
-        <div className='min-h-screen bg-gray-50'>
-            <div className='bg-gradient-to-r from-gray-900 to-gray-700 text-white py-16'>
-                <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-                    <h1 className='text-4xl md:text-5xl font-bold mb-4'>Welcome to TechStore</h1>
-                    <p className='text-xl text-gray-300'>
-                        Discover our premium collection of tech products
-                    </p>
-                </div>
-            </div>
+        <div>
             {!data || isValidating ? (
                 <Spinner size='large' centered />
             ) : (
@@ -186,7 +178,7 @@ export default function ShopContainer() {
             <button
                 className='fixed bottom-6 cursor-pointer right-6 z-50 bg-gray-900 hover:bg-gray-800 text-white rounded-full p-4 shadow-xl transition-all flex items-center focus:outline-none focus:ring-4 focus:ring-gray-500'
                 aria-label='View shopping cart'
-                onClick={() => navigate('/cart')}
+                onClick={() => navigate('/shop/cart')}
                 type='button'
                 style={{
                     boxShadow: '0 8px 24px 0 rgba(0,0,0,0.15)',

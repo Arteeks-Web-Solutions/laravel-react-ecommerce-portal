@@ -11,7 +11,7 @@ export default function Error() {
                     Oops! Something went wrong on our end, please contact an administrator.
                 </p>
                 <Link
-                    to='/'
+                    to='/shop'
                     className='bg-white text-gray-900 px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors'
                 >
                     <ArrowLeft className='w-4 h-4' />

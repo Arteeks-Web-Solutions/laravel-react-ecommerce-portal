@@ -33,7 +33,7 @@ export default function Navbar() {
                 <div className='flex justify-between items-center h-16'>
                     <div className='flex items-center'>
                         <Link
-                            to='/'
+                            to='/shop'
                             className='text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors'
                         >
                             TechStore
@@ -42,7 +42,7 @@ export default function Navbar() {
 
                     <div className='flex items-center space-x-6'>
                         <NavLink
-                            to='/'
+                            to='/shop'
                             className={({ isActive }) =>
                                 `flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
                                     isActive

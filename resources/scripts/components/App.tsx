@@ -1,16 +1,15 @@
 import receiveUser from '@/api/receiveUser';
 import NotFound from '@/components/exceptions/NotFound';
 import Navbar from '@/components/Navbar';
-import ShopContainer from '@/components/shop/ShopContainer';
 import AdminRouter from '@/routers/AdminRouter';
 import AuthenticationRouter from '@/routers/AuthenticationRouter';
 import ClientRouter from '@/routers/ClientRouter';
+import ShopRouter from '@/routers/ShopRouter';
 import { useStoreActions } from '@/state/hooks';
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { SWRConfig } from 'swr';
-import CartContainer from './shop/CartCointainer';
 
 export default function App() {
     const setUserData = useStoreActions((actions) => actions.user.setUserData);
@@ -34,11 +33,9 @@ export default function App() {
                     <ToastContainer />
 
                     <Routes>
-                        <Route path='/' element={<ShopContainer />} />
-                        <Route path='/cart' element={<CartContainer />} />
-
                         <Route path='/auth/*' element={<AuthenticationRouter />} />
                         <Route path='/client/*' element={<ClientRouter />} />
+                        <Route path='/shop/*' element={<ShopRouter />} />
                         <Route path='/admin/*' element={<AdminRouter />} />
 
                         <Route path='*' element={<NotFound />} />
