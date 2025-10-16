@@ -6,20 +6,13 @@ import AdminRouter from '@/routers/AdminRouter';
 import AuthenticationRouter from '@/routers/AuthenticationRouter';
 import ClientRouter from '@/routers/ClientRouter';
 import { useStoreActions } from '@/state/hooks';
-import type { Product } from '@/types/models';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { SWRConfig } from 'swr';
 
 export default function App() {
     const setUserData = useStoreActions((actions) => actions.user.setUserData);
-
-    const [cartItems, setCartItems] = useState<Product[]>([]);
-
-    const handleAddToCart = (product: Product) => {
-        setCartItems([...cartItems, product]);
-    };
 
     useEffect(() => {
         receiveUser()
@@ -36,11 +29,11 @@ export default function App() {
         >
             <Router>
                 <div className='min-h-screen bg-gray-50'>
-                    <Navbar cartItemCount={cartItems.length} />
+                    <Navbar />
                     <ToastContainer />
 
                     <Routes>
-                        <Route path='/' element={<ShopContainer onAddToCart={handleAddToCart} />} />
+                        <Route path='/' element={<ShopContainer />} />
 
                         <Route path='/auth/*' element={<AuthenticationRouter />} />
                         <Route path='/client/*' element={<ClientRouter />} />

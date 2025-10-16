@@ -14,8 +14,10 @@ class ProductIndexDataResource extends BaseResource
     public function transformData(Request $request): array
     {
         return [
-            'categories' => $this->resource['categories'],
-            'products' => $this->resource['products'],
+            'categories'  => $this->resource['categories'],
+            'products'    => $this->resource['products'],
+            // cart_count is optional, only included if present
+            'cart_count'  => $this->resource['cart_count'] ?? null,
         ];
     }
 }

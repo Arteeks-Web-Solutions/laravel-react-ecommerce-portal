@@ -5,11 +5,7 @@ import { LayoutDashboard, LogIn, LogOut, ShoppingCart, User } from 'lucide-react
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-interface NavbarProps {
-    cartItemCount: number;
-}
-
-export default function Navbar({ cartItemCount }: NavbarProps) {
+export default function Navbar() {
     const navigate = useNavigate();
 
     const user = useStoreState((state) => state.user.data);
@@ -57,11 +53,6 @@ export default function Navbar({ cartItemCount }: NavbarProps) {
                         >
                             <ShoppingCart className='w-5 h-5' />
                             <span className='hidden sm:inline'>Shop</span>
-                            {cartItemCount > 0 && (
-                                <span className='bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center'>
-                                    {cartItemCount}
-                                </span>
-                            )}
                         </NavLink>
 
                         {isAuthenticated ? (

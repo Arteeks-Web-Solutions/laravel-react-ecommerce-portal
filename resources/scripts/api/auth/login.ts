@@ -1,5 +1,6 @@
-import http from '@/api/http';
+import http, { AddHttpError } from '@/api/http';
 import type { UserData } from '@/state/user';
+import mergeCart from '@/api/shop/mergeCart';
 
 export interface LoginData {
     email: string;
@@ -23,6 +24,19 @@ export default ({ email, password, recaptchaData }: LoginData): Promise<UserData
                         new Error('An error occurred while processing the login request.'),
                     );
                 }
+
+                // Attempt to merge local cart with user's database cart
+                mergeCart(
+                    JSON.parse(localStorage.getItem('cart') || '[]') as {
+                        product_id: number;
+                        quantity: number;
+                    }[],
+                )
+                    .then(() => localStorage.removeItem('cart'))
+                    .catch((error) => {
+                        AddHttpError(error);
+                        console.error('Failed to merge cart after login:', error);
+                    });
 
                 return resolve(response.data);
             })
