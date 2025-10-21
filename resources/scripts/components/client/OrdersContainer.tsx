@@ -1,31 +1,47 @@
-import { mockOrders } from '@/data/mockData';
+import getOrders from '@/api/client/getOrders';
+import type { Order, OrderItem } from '@/types/models';
+import { useEffect } from 'react';
+import Spinner from '@/components/elements/Spinner';
+import Error from '@/components/exceptions/Error';
+
+const getStatusColor = (status: string) => {
+    switch (status) {
+        case 'delivered':
+            return 'bg-green-100 text-green-800';
+        case 'shipped':
+            return 'bg-blue-100 text-blue-800';
+        case 'processing':
+            return 'bg-yellow-100 text-yellow-800';
+        default:
+            return 'bg-gray-100 text-gray-800';
+    }
+};
 
 export default function OrdersContainer() {
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'delivered':
-                return 'bg-green-100 text-green-800';
-            case 'shipped':
-                return 'bg-blue-100 text-blue-800';
-            case 'processing':
-                return 'bg-yellow-100 text-yellow-800';
-            default:
-                return 'bg-gray-100 text-gray-800';
-        }
-    };
+    const { data, error, isValidating } = getOrders();
 
-    return (
+    useEffect(() => {
+        if (error) console.error(error);
+    }, [error]);
+
+    if (error) return <Error />;
+
+    return !data || isValidating ? (
+        <Spinner centered size='large' />
+    ) : (
         <div className='space-y-4'>
-            {mockOrders.map((order) => (
+            {data.map((order: Order) => (
                 <div
                     key={order.id}
                     className='bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow'
                 >
                     <div className='flex flex-col md:flex-row md:items-center justify-between mb-4'>
                         <div>
-                            <h3 className='text-lg font-bold text-gray-900'>Order {order.id}</h3>
+                            <h3 className='text-lg font-bold text-gray-900'>
+                                Order ORD-{order.id}
+                            </h3>
                             <p className='text-gray-500 text-sm'>
-                                {new Date(order.date).toLocaleDateString('nl-NL', {
+                                {new Date(order.createdAt).toLocaleDateString('en-EN', {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric',
@@ -39,7 +55,10 @@ export default function OrdersContainer() {
                                 {order.status}
                             </span>
                             <span className='text-xl font-bold text-gray-900'>
-                                €{order.total.toFixed(2)}
+                                €
+                                {order.items
+                                    .reduce((sum: number, item: OrderItem) => sum + item.price, 0)
+                                    .toFixed(2)}
                             </span>
                         </div>
                     </div>
@@ -53,7 +72,7 @@ export default function OrdersContainer() {
                                     className='flex justify-between items-center text-sm'
                                 >
                                     <span className='text-gray-700'>
-                                        {item.productName}{' '}
+                                        {item.name}{' '}
                                         <span className='text-gray-500'>x{item.quantity}</span>
                                     </span>
                                     <span className='font-medium text-gray-900'>

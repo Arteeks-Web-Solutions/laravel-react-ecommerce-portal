@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->restrictOnDelete();
+            $table->json('items');
             $table->string('status')->default('pending');
             $table->string('stripe_session_id');
             $table->timestamps();

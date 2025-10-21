@@ -13,6 +13,7 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
+        'items',
         'status',
         'stripe_session_id',
     ];
@@ -26,6 +27,7 @@ class Order extends Model
     {
         return [
             'user_id' => 'integer',
+            'items' => 'array',
         ];
     }
 }

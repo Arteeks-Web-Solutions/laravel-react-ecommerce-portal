@@ -9,10 +9,11 @@ import type { CartItem, Product } from '@/types/models';
 import { Form, Formik, type FormikHelpers } from 'formik';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import LoginForm from '../auth/forms/LoginForm';
-import RegisterForm from '../auth/forms/RegisterForm';
-import Field from '../elements/Field';
-import Error from '../exceptions/Error';
+import LoginForm from '@/components/auth/forms/LoginForm';
+import RegisterForm from '@/components/auth/forms/RegisterForm';
+import Field from '@/components/elements/Field';
+import Error from '@/components/exceptions/Error';
+import { useNavigate } from 'react-router-dom';
 
 interface Values {
     name: string;
@@ -27,6 +28,7 @@ export default function CheckoutContainer() {
     const isAuthenticated = useStoreState((state) => !!state.user.data);
     const user = useStoreState((state) => state.user.data);
 
+    const navigate = useNavigate();
     const { data, isValidating, error, mutate } = getCartData();
 
     const handleSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
@@ -53,6 +55,13 @@ export default function CheckoutContainer() {
     // On component mount, ensure cart items are valid (product exists and stock is sufficient)
     useEffect(() => {
         if (!data || !isAuthenticated) return;
+
+        if (data.cart?.items?.length === 0) {
+            // toast can send twice in development mode, this is expected behavior due to double mounting
+            toast.info('Your cart is empty. Please add items to proceed to checkout.');
+            navigate('/shop');
+        }
+
         data.cart?.items?.forEach((item: CartItem) => {
             const product = data.products.find((p: Product) => p.id === item.productId);
 
@@ -80,7 +89,7 @@ export default function CheckoutContainer() {
                     });
             }
         });
-    }, [data, isAuthenticated, mutate]);
+    }, [data, isAuthenticated, mutate, navigate]);
 
     useEffect(() => {
         if (isAuthenticated) mutate();

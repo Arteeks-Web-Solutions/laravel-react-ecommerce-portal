@@ -8,12 +8,9 @@ use TechStore\Models\Order;
 
 class OrderResource extends BaseResource
 {
-    protected Collection $items;
-
-    public function __construct(Order $resource, Collection $items)
+    public function __construct(Order $resource)
     {
         parent::__construct($resource);
-        $this->items = $items;
     }
 
     /**
@@ -24,9 +21,10 @@ class OrderResource extends BaseResource
     public function transformData(Request $request): array
     {
         return [
-            'status' => $this->status,
+            'id' => $this->id,
             'items' => $this->items,
-            'created_at' => $this->created_at->toDateTimeString(),
+            'status' => $this->status,
+            'created_at' => $this->created_at->toAtomString(),
         ];
     }
 }

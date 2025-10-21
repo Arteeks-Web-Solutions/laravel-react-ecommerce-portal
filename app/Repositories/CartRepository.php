@@ -17,6 +17,12 @@ class CartRepository extends BaseRepository
         parent::__construct($model);
     }
 
+    /**
+     * Get the cart items for a user.
+     *
+     * @param int $userId
+     * @return Cart|null
+     */
     function getCartItems(int $userId): Cart|null
     {
         $cart = $this->model->where('user_id', $userId)->first();
@@ -59,6 +65,12 @@ class CartRepository extends BaseRepository
         $cart->save();
     }
 
+    /**
+     * Count total items in the user's cart.
+     *
+     * @param int $userId
+     * @return int
+     */
     public function count(int $userId): int
     {
         $cart = $this->model->where('user_id', $userId)->first();
@@ -68,5 +80,20 @@ class CartRepository extends BaseRepository
         }
 
         return array_sum(array_column($cart->items, 'quantity'));
+    }
+
+    /**
+     * Clear the user's cart.
+     *
+     * @param int $userId
+     */
+    public function clearCart(int $userId): void
+    {
+        $cart = $this->model->where('user_id', $userId)->first();
+
+        if ($cart) {
+            $cart->items = [];
+            $cart->save();
+        }
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', [Client\UserController::class, 'current'])->middleware('auth');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/orders', [Client\OrderController::class, 'index']);
     Route::get('/order/{order:id}', [Client\OrderController::class, 'view']);
 
     Route::post('/personal', [Client\UserController::class, 'updatePersonalData']);

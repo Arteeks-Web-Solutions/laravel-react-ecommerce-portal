@@ -43,76 +43,78 @@ export default function FailedContainer() {
 
             {!data || isValidating ? (
                 <Spinner centered size='large' />
-            ) : cartItems.length === 0 ? (
-                <div className='text-gray-500 text-lg text-center py-12'>
-                    No items to display in the summary.
-                </div>
             ) : (
-                <div>
-                    <h2 className='text-lg font-semibold flex items-center gap-2 mb-4'>
-                        <ShoppingCart className='w-5 h-5' />
-                        Order summary
-                    </h2>
+                cartItems.length > 0 && (
+                    <div>
+                        <h2 className='text-lg font-semibold flex items-center gap-2 mb-4'>
+                            <ShoppingCart className='w-5 h-5' />
+                            Order summary
+                        </h2>
 
-                    <ul className='divide-y'>
-                        {cartItems.map((item: CartItem) => {
-                            const product = data.products.find(
-                                (p: Product) => p.id === item.productId,
-                            );
+                        <ul className='divide-y'>
+                            {cartItems.map((item: CartItem) => {
+                                const product = data.products.find(
+                                    (p: Product) => p.id === item.productId,
+                                );
 
-                            return (
-                                <li key={item.productId} className='py-4 flex items-center gap-4'>
-                                    {product?.image ? (
-                                        <img
-                                            src={product.image}
-                                            alt={product?.name ?? `Product ${item.productId}`}
-                                            className='w-16 h-16 min-w-16 min-h-16 object-cover rounded'
-                                        />
-                                    ) : (
-                                        <div className='w-16 h-16 min-w-16 min-h-16 rounded-lg bg-gray-200 flex items-center justify-center'>
-                                            <Package className='w-10 h-10 text-gray-300' />
-                                        </div>
-                                    )}
-                                    <div className='w-full'>
-                                        <div className='flex justify-between'>
-                                            <div>
+                                return (
+                                    <li
+                                        key={item.productId}
+                                        className='py-4 flex items-center gap-4'
+                                    >
+                                        {product?.image ? (
+                                            <img
+                                                src={product.image}
+                                                alt={product?.name ?? `Product ${item.productId}`}
+                                                className='w-16 h-16 min-w-16 min-h-16 object-cover rounded'
+                                            />
+                                        ) : (
+                                            <div className='w-16 h-16 min-w-16 min-h-16 rounded-lg bg-gray-200 flex items-center justify-center'>
+                                                <Package className='w-10 h-10 text-gray-300' />
+                                            </div>
+                                        )}
+                                        <div className='w-full'>
+                                            <div className='flex justify-between'>
+                                                <div>
+                                                    <div className='font-semibold text-gray-900'>
+                                                        {product?.name ??
+                                                            `Product #${item.productId}`}
+                                                    </div>
+                                                    <div className='text-gray-500 text-sm'>
+                                                        {product?.category?.name ?? ''}
+                                                    </div>
+                                                </div>
                                                 <div className='font-semibold text-gray-900'>
-                                                    {product?.name ?? `Product #${item.productId}`}
-                                                </div>
-                                                <div className='text-gray-500 text-sm'>
-                                                    {product?.category?.name ?? ''}
+                                                    €
+                                                    {(product
+                                                        ? product.price * item.quantity
+                                                        : 0
+                                                    ).toFixed(2)}
                                                 </div>
                                             </div>
-                                            <div className='font-semibold text-gray-900'>
-                                                €
-                                                {(product
-                                                    ? product.price * item.quantity
-                                                    : 0
-                                                ).toFixed(2)}
+                                            <div className='flex items-center justify-between mt-2'>
+                                                <div className='text-sm text-gray-700'>
+                                                    Quantity: {item.quantity}
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className='flex items-center justify-between mt-2'>
-                                            <div className='text-sm text-gray-700'>
-                                                Quantity: {item.quantity}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                                    </li>
+                                );
+                            })}
+                        </ul>
 
-                    <div className='border-t pt-6 flex justify-between items-center'>
-                        <div className='text-lg'>
-                            <span className='font-semibold'>
-                                Total ({totalCount} item{totalCount > 1 ? 's' : ''}):
-                            </span>
-                        </div>
-                        <div className='text-2xl font-bold text-gray-900'>
-                            €{totalPrice.toFixed(2)}
+                        <div className='border-t pt-6 flex justify-between items-center'>
+                            <div className='text-lg'>
+                                <span className='font-semibold'>
+                                    Total ({totalCount} item{totalCount > 1 ? 's' : ''}):
+                                </span>
+                            </div>
+                            <div className='text-2xl font-bold text-gray-900'>
+                                €{totalPrice.toFixed(2)}
+                            </div>
                         </div>
                     </div>
-                </div>
+                )
             )}
 
             <div className='flex gap-3 mt-8 justify-end'>

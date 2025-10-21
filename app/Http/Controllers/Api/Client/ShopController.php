@@ -180,7 +180,25 @@ class ShopController extends Controller
             return redirect('/shop/checkout/failed');
         }
 
-        $order = $this->orderRepository->createFromStripeSession($session);
+        $stripe_items = Session::allLineItems($session_id, [
+            'expand' => ['data.price.product'],
+        ]);
+
+        $items = [];
+        foreach ($stripe_items->data as $item) {
+            $product = $item->price->product;
+            $items[] = [
+                'product_id' => (int) $product->metadata->product_id,
+                'name' => $product->name,
+                'image' => $product->images[0] ?? null,
+                'quantity' => $item->quantity,
+                'price' => $item->amount_total / 100,
+            ];
+        }
+
+        // save order and line items to database to prevent extra API calls later
+        $order = $this->orderRepository->createFromStripeSession($session, $items);
+        $this->cartRepository->clearCart($request->user()->id);
 
         return redirect('/shop/checkout/completed?order_id=' . $order->id);
     }
