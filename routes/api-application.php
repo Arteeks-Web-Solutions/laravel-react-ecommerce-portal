@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use TechStore\Http\Controllers\Api\Application;
 
+Route::get('/', [Application\DashboardController::class, 'index']);
+
 Route::prefix('products')->group(function () {
     Route::get('/', [Application\ProductController::class, 'index']);
 

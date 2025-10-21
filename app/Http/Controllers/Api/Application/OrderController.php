@@ -23,7 +23,7 @@ class OrderController extends Controller
      */
     public function index(): ResourceCollection
     {
-        return OrderResource::collection($this->orderRepository->all());
+        return OrderResource::collection($this->orderRepository->all()->reverse());
     }
 
     /**
