@@ -1,6 +1,8 @@
 import NotFound from '@/components/exceptions/NotFound';
 import CartContainer from '@/components/shop/CartCointainer';
 import CheckoutContainer from '@/components/shop/CheckoutContainer';
+import CheckoutCompleted from '@/components/shop/CompletedContainer';
+import FailedContainer from '@/components/shop/FailedContainer';
 import ShopContainer from '@/components/shop/ShopContainer';
 import { Route, Routes } from 'react-router-dom';
 
@@ -20,6 +22,8 @@ export default function ClientRouter() {
                 <Route path='/' element={<ShopContainer />} />
                 <Route path='/cart' element={<CartContainer />} />
                 <Route path='/checkout' element={<CheckoutContainer />} />
+                <Route path='/checkout/completed' element={<CheckoutCompleted />} />
+                <Route path='/checkout/failed' element={<FailedContainer />} />
 
                 <Route path='*' element={<NotFound />} />
             </Routes>

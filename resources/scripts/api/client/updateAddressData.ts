@@ -8,7 +8,7 @@ export default (
     country: string,
 ): Promise<UserData> => {
     return new Promise((resolve, reject) => {
-        http.post('/api/client/client/address', { street, postal_code: postalCode, city, country })
+        http.post('/api/client/address', { street, postal_code: postalCode, city, country })
             .then((response) => resolve(response.data))
             .catch(reject);
     });

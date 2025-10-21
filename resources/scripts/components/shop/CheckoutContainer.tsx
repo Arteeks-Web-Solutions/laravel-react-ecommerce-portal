@@ -1,17 +1,18 @@
+import { AddHttpError } from '@/api/http';
+import checkout from '@/api/shop/checkout';
 import getCartData from '@/api/shop/getCartData';
+import updateCart from '@/api/shop/updateCart';
 import Button from '@/components/elements/Button';
 import Spinner from '@/components/elements/Spinner';
 import { useStoreState } from '@/state/hooks';
+import type { CartItem, Product } from '@/types/models';
 import { Form, Formik, type FormikHelpers } from 'formik';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import LoginForm from '../auth/forms/LoginForm';
 import RegisterForm from '../auth/forms/RegisterForm';
 import Field from '../elements/Field';
-import type { CartItem, Product } from '@/types/models';
 import Error from '../exceptions/Error';
-import { useEffect } from 'react';
-import updateCart from '@/api/shop/updateCart';
-import { AddHttpError } from '@/api/http';
-import { toast } from 'react-toastify';
 
 interface Values {
     name: string;
@@ -29,8 +30,17 @@ export default function CheckoutContainer() {
     const { data, isValidating, error, mutate } = getCartData();
 
     const handleSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
-        // TODO: API call
-        alert('Order placed!');
+        checkout(values.name, values.email, values.street, values.city, values.zip, values.country)
+            .then((response) => {
+                window.location.href = response;
+            })
+            .catch((error) => {
+                console.error(error);
+                AddHttpError(error);
+            })
+            .finally(() => {
+                setSubmitting(false);
+            });
     };
 
     const cartItems = data?.cart?.items ?? [];
@@ -73,6 +83,10 @@ export default function CheckoutContainer() {
     }, [data, isAuthenticated, mutate]);
 
     useEffect(() => {
+        if (isAuthenticated) mutate();
+    }, [isAuthenticated, mutate]);
+
+    useEffect(() => {
         if (error) console.error(error);
     }, [error]);
 
@@ -81,7 +95,7 @@ export default function CheckoutContainer() {
     return (
         <div className='max-w-3xl mx-auto p-6 bg-white rounded-xl shadow mt-10 mb-10'>
             <h2 className='text-2xl font-bold mb-6'>Checkout</h2>
-            {isValidating ? (
+            {!data || isValidating ? (
                 <Spinner centered size='large' />
             ) : !isAuthenticated ? (
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
@@ -211,7 +225,9 @@ export default function CheckoutContainer() {
                                 </div>
                             </div>
                             <div className='flex justify-end'>
-                                <Button onClick={submitForm}>Place Order</Button>
+                                <Button isLoading={isSubmitting} onClick={submitForm}>
+                                    Place Order
+                                </Button>
                             </div>
                         </Form>
                     )}

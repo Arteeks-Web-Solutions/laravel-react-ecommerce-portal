@@ -4,6 +4,7 @@ namespace TechStore\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
 abstract class BaseResource extends JsonResource
@@ -31,31 +32,59 @@ abstract class BaseResource extends JsonResource
     abstract protected function transformData(Request $request): array;
 
     /**
-     * Recursively converts all keys in an array to camelCase.
+     * Recursively converts data (arrays, iterables, Arrayable objects, JsonResource,
+     * Stripe\Collection, plain objects) to arrays with camelCased keys.
      *
-     * @param array $array
-     * @return array
+     * @param mixed $data
+     * @return mixed
      */
-    protected function convertToCamelCase(array $array): array
+    protected function convertToCamelCase(mixed $data): mixed
     {
-        $camelCased = [];
-        foreach ($array as $key => $value) {
-            // Convert the key to camelCase
-            $camelKey = Str::camel($key);
-
-            // Recursively handle arrays and nested Resources
-            if (is_array($value)) {
-                $value = $this->convertToCamelCase($value);
-            }
-
-            // Check for and resolve nested JsonResource objects (e.g., whenLoaded results)
-            if ($value instanceof JsonResource) {
-                // Force the resource to transform itself into an array
-                $value = $value->toArray(request());
-            }
-
-            $camelCased[$camelKey] = $value;
+        // If it's a JsonResource, force it to array first
+        if ($data instanceof JsonResource) {
+            return $this->convertToCamelCase($data->toArray(request()));
         }
-        return $camelCased;
+
+        // If it implements Arrayable (Eloquent collections, models, etc.)
+        if ($data instanceof Arrayable) {
+            return $this->convertToCamelCase($data->toArray());
+        }
+
+        // Arrays: convert keys and recurse
+        if (is_array($data)) {
+            $camelCased = [];
+            foreach ($data as $key => $value) {
+                $camelKey = is_string($key) ? Str::camel($key) : $key;
+                $camelCased[$camelKey] = $this->convertToCamelCase($value);
+            }
+            return $camelCased;
+        }
+
+        // Iterables (including Traversable, Stripe\Collection, etc.)
+        if (is_iterable($data)) {
+            $result = [];
+            foreach ($data as $key => $value) {
+                $camelKey = is_string($key) ? Str::camel($key) : $key;
+                $result[$camelKey] = $this->convertToCamelCase($value);
+            }
+            return $result;
+        }
+
+        // Objects: try to convert to array (prefer toArray), handle Stripe objects with ->data, otherwise cast
+        if (is_object($data)) {
+            if (method_exists($data, 'toArray')) {
+                return $this->convertToCamelCase($data->toArray());
+            }
+
+            // Stripe\Collection and many Stripe objects expose ->data property that is an array
+            if (property_exists($data, 'data') && is_array($data->data)) {
+                return $this->convertToCamelCase($data->data);
+            }
+
+            // Last resort: cast to array
+            return $this->convertToCamelCase((array) $data);
+        }
+
+        return $data;
     }
 }

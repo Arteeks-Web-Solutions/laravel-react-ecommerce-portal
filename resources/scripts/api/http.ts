@@ -11,24 +11,15 @@ const http: AxiosInstance = axios.create({
     },
 });
 
-http.interceptors.response.use(
-    (response: AxiosResponse) => {
-        // Laravel's API responses are always wrapped in a `data` object, so if that exists,
-        // unwrap it so that callers don't need to do `response.data.data`.
-        if (response.data && response.data.data !== undefined) {
-            response.data = response.data.data;
-        }
+http.interceptors.response.use((response: AxiosResponse) => {
+    // Laravel's API responses are always wrapped in a `data` object, so if that exists,
+    // unwrap it so that callers don't need to do `response.data.data`.
+    if (response.data && response.data.data !== undefined) {
+        response.data = response.data.data;
+    }
 
-        return response;
-    },
-    (error: AxiosError) => {
-        if (error.response?.status === 401) {
-            // prevent 401 AxiosError's from spamming the console if a user is not logged in.
-            return Promise.resolve({ data: null } as AxiosResponse);
-        }
-        return Promise.reject(error);
-    },
-);
+    return response;
+});
 
 export default http;
 
