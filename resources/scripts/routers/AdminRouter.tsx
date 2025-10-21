@@ -1,5 +1,5 @@
 import DashboardContainer from '@/components/admin/DashboardContainer';
-import OrdersContainer from '@/components/admin/OrdersContainer';
+import OrdersContainer from '@/components/admin/orders/OrdersContainer';
 import ProductsContainer from '@/components/admin/products/ProductsContainer';
 import NotFound from '@/components/exceptions/NotFound';
 import { Package, TrendingUp } from 'lucide-react';

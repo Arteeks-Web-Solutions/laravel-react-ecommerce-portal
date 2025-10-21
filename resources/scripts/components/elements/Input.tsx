@@ -76,7 +76,7 @@ export const Select: React.FC<SelectProps> = ({ options, className = '', disable
     `;
 
     return (
-        <div className='relative w-full'>
+        <div className='relative'>
             <select disabled={disabled} className={defaultClasses} {...props}>
                 {options.map((option, index) => (
                     <option key={index} value={option.value}>

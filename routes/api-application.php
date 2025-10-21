@@ -13,3 +13,9 @@ Route::prefix('products')->group(function () {
     Route::delete('/{product:id}', [Application\ProductController::class, 'deleteProduct']);
     Route::delete('/category/{category:id}', [Application\ProductController::class, 'destroyCategory']);
 });
+
+Route::prefix('orders')->group(function () {
+    Route::get('/', [Application\OrderController::class, 'index']);
+
+    Route::post('/{order:id}', [Application\OrderController::class, 'update']);
+});

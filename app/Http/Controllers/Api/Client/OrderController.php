@@ -4,8 +4,6 @@ namespace TechStore\Http\Controllers\Api\Client;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Stripe\Checkout\Session;
-use Stripe\Stripe;
 use TechStore\Http\Controllers\Controller;
 use TechStore\Http\Resources\OrderResource;
 use TechStore\Models\Order;
