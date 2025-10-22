@@ -49,15 +49,35 @@ export default function OrderModal({ order, onClose, mutate }: ViewOrderModalPro
             title={`Order #ORD-${order.id}`}
         >
             <div className='space-y-4'>
-                <div className='flex justify-between text-sm text-gray-600'>
-                    <span>Order Date:</span>
-                    <span>
-                        {new Date(order.createdAt).toLocaleDateString('en-EN', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                        })}
-                    </span>
+                <div className='border-t border-gray-200 pt-3 space-y-2'>
+                    <h4 className='font-semibold text-gray-900 mb-1'>Order Info</h4>
+                    <div className='text-sm text-gray-600'>
+                        <div className='flex justify-between'>
+                            <span>Order Date:</span>
+                            <span>
+                                {new Date(order.createdAt).toLocaleDateString('en-EN', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                })}
+                            </span>
+                        </div>
+                        <div className='flex justify-between'>
+                            <span>Email:</span>
+                            <span>{order.email}</span>
+                        </div>
+                        <div className='flex justify-between'>
+                            <span>Recipient:</span>
+                            <span>{order.shippingName}</span>
+                        </div>
+                        <div className='flex justify-between'>
+                            <span>Address:</span>
+                            <span>
+                                {order.shippingLine1}, {order.shippingCity} {order.shippingPostal},{' '}
+                                {order.shippingCountry}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <div className='flex justify-between items-center text-sm text-gray-600'>

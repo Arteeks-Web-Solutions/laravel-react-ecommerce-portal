@@ -1,13 +1,13 @@
-import { useStoreActions, useStoreState } from '@/state/hooks';
-import { Form, Formik, type FormikHelpers } from 'formik';
-import { CreditCard, MapPin, User } from 'lucide-react';
-import Field from '@/components/elements/Field';
-import Button from '@/components/elements/Button';
-import Spinner from '@/components/elements/Spinner';
+import updateAddressData from '@/api/client/updateAddressData';
 import updatePersonalData from '@/api/client/updatePersonalData';
 import { AddHttpError } from '@/api/http';
+import Button from '@/components/elements/Button';
+import Field from '@/components/elements/Field';
+import Spinner from '@/components/elements/Spinner';
+import { useStoreActions, useStoreState } from '@/state/hooks';
+import { Form, Formik, type FormikHelpers } from 'formik';
+import { MapPin, User } from 'lucide-react';
 import { toast } from 'react-toastify';
-import updateAddressData from '@/api/client/updateAddressData';
 
 interface PersonalData {
     name: string;
@@ -137,7 +137,9 @@ export default function ProfileContainer() {
                 </Formik>
             </div>
 
-            <div className='bg-white rounded-xl shadow-sm p-6'>
+            {/* This section is intended for use with on-site payment handling. However,
+            since we are currently using Stripe Session Checkout, it is not required at this time. */}
+            {/* <div className='bg-white rounded-xl shadow-sm p-6'>
                 <div className='flex items-center mb-4'>
                     <CreditCard className='w-6 h-6 text-gray-900 mr-3' />
                     <h3 className='text-xl font-bold text-gray-900'>Payment methods</h3>
@@ -159,7 +161,7 @@ export default function ProfileContainer() {
                         + Add New Card
                     </button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

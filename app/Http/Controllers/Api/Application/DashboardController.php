@@ -21,7 +21,17 @@ class DashboardController extends Controller
             'total_revenue' => number_format(Order::all()->flatMap(fn($order) => collect($order->items))->sum('price'), 2),
             'products_count' => Product::count(),
             'recent_orders' => Order::latest()->take(5)->get(),
-            'top_products' => Product::whereIn('id', $ids = Order::all()->flatMap->items->groupBy('product_id')->map(fn($g, $id) => ['id' => (int)$id, 'qty' => $g->sum('quantity')])->sortByDesc('qty')->take(5)->values()->pluck('id')->toArray())->orderByRaw('FIELD(id,' . implode(',', $ids) . ')')->get(),
+            'top_products' => Product::whereIn('id', $ids = Order::all()
+                ->flatMap->items
+                ->groupBy('product_id')
+                ->map(fn($g, $id) => ['id' => (int)$id, 'qty' => $g->sum('quantity')])
+                ->sortByDesc('qty')
+                ->take(5)
+                ->values()
+                ->pluck('id')
+                ->toArray())
+                ->when(!empty($ids), fn($query) => $query->orderByRaw('FIELD(id,' . implode(',', $ids) . ')'))
+                ->get(),
         ]);
     }
 }

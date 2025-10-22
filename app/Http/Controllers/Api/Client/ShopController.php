@@ -151,6 +151,13 @@ class ShopController extends Controller
                 'sofort'
             ],
             'line_items' => $items,
+            'metadata' => [
+                'shipping_name' => $request->input('name'),
+                'shipping_line1' => $request->input('street'),
+                'shipping_city' => $request->input('city'),
+                'shipping_postal' => $request->input('postal_code'),
+                'shipping_country' => $request->input('country'),
+            ],
             'mode' => 'payment',
             'success_url' => rtrim(config('app.url'), '/') . '/api/client/shop/checkout/success?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => rtrim(config('app.url'), '/') . '/shop/checkout/failed',

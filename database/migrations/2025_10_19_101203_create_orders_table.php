@@ -15,7 +15,13 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->restrictOnDelete();
+            $table->string('email');
             $table->json('items');
+            $table->string('shipping_name');
+            $table->string('shipping_line1');
+            $table->string('shipping_city');
+            $table->string('shipping_postal');
+            $table->string('shipping_country');
             $table->string('status')->default('pending');
             $table->string('stripe_session_id');
             $table->timestamps();

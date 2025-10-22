@@ -13,7 +13,13 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
+        'email',
         'items',
+        'shipping_name',
+        'shipping_line1',
+        'shipping_city',
+        'shipping_postal',
+        'shipping_country',
         'status',
         'stripe_session_id',
     ];
