@@ -1,0 +1,53 @@
+name: Laravel Backend Tests
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - uses: actions/checkout@v4
+
+      # 2. Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      # 3. Install Composer dependencies
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
+
+      # 4. Copy/testing .env
+      - name: Copy .env.testing
+        run: php -r "file_exists('.env.testing') || copy('.env.example', '.env.testing');"
+
+      # 5. Generate APP key (for testing)
+      - name: Generate key
+        run: php artisan key:generate --env=testing
+
+      # 6. Set folder permissions
+      - name: Set storage and bootstrap/cache permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      # 7. Run migrations (in-memory SQLite)
+      - name: Run migrations
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
+        run: php artisan migrate --env=testing --force
+
+      # 8. Run tests
+      - name: Run PHPUnit/Pest tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
+          APP_ENV: testing
+          VITE_DISABLED: true
+        run: php artisan test --env=testing --parallel

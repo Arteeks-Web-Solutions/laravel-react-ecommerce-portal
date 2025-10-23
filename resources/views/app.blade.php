@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ecommerce Portal</title>
 
-    @viteReactRefresh
-    @vite('resources/scripts/index.tsx')
+    @if (!env('VITE_DISABLED', false))
+        @viteReactRefresh
+        @vite('resources/scripts/index.tsx')
+    @endif
 </head>
 
 <body class="antialiased">

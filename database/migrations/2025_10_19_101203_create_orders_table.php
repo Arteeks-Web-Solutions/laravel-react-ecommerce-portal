@@ -27,7 +27,7 @@ return new class extends Migration
         });
 
         // Set the starting value for the auto-incrementing ID
-        DB::statement('ALTER TABLE orders AUTO_INCREMENT = 1000;');
+        if (DB::getDriverName() !== 'sqlite') DB::statement('ALTER TABLE orders AUTO_INCREMENT = 1000;');
     }
 
     /**
