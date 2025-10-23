@@ -41,13 +41,8 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
-        run: php artisan migrate --env=testing --force
+        run: php artisan migrate --force
 
       # 8. Run tests
       - name: Run PHPUnit/Pest tests
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: ':memory:'
-          APP_ENV: testing
-          VITE_DISABLED: true
-        run: php artisan test --env=testing --parallel
+        run: php artisan test
