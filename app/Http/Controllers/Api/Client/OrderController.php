@@ -69,7 +69,6 @@ class OrderController extends Controller
             ->addItems($items)
             ->sequence($order->id)
             ->date($order->created_at)
-            ->notes('Paid on: ' . $order->created_at->toFormattedDateString())
             ->save('public');
 
         return $invoice->download('invoice_' . $order->id . '.pdf');
