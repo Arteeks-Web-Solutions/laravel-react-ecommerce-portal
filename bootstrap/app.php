@@ -10,6 +10,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \TechStore\Http\Middleware\IsAdmin::class,
         ]);
+
+        $middleware->redirectUsersTo('/shop');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

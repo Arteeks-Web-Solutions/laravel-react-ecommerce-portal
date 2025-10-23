@@ -19,4 +19,4 @@ Route::get('/password/email', [Auth\LoginController::class, 'index']);
 Route::post('/password/email', [Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::post('/password/reset', [Auth\ResetPasswordController::class, 'reset'])->name('password.update');
 
-Route::get('password/reset/{token}', [Auth\LoginController::class, 'index'])->name('password.reset');
+Route::get('/password/reset/{token}', [Auth\LoginController::class, 'index'])->name('password.reset');

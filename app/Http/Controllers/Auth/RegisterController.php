@@ -41,10 +41,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(private RecaptchaService $recaptcha)
-    {
-        $this->middleware('guest');
-    }
+    public function __construct(private RecaptchaService $recaptcha) {}
 
     /**
      * Get a validator for an incoming registration request.
