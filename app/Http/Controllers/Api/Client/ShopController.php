@@ -4,6 +4,7 @@ namespace TechStore\Http\Controllers\Api\Client;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -16,6 +17,7 @@ use TechStore\Http\Resources\ProductCategoryResource;
 use TechStore\Http\Resources\ProductDataResource;
 use TechStore\Http\Resources\ProductResource;
 use TechStore\Models\Product;
+use TechStore\Notifications\OrderConfirmation;
 use TechStore\Repositories\CartRepository;
 use TechStore\Repositories\OrderItemRepository;
 use TechStore\Repositories\OrderRepository;
@@ -213,6 +215,9 @@ class ShopController extends Controller
         }
 
         $this->cartRepository->clearCart($request->user()->id);
+
+        Notification::route('mail', $order->email)
+            ->notify(new OrderConfirmation($order));
 
         return redirect('/shop/checkout/completed?order_id=' . $order->id);
     }

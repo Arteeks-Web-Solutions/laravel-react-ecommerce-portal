@@ -3,10 +3,12 @@
 namespace TechStore\Http\Controllers\Api\Application;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Notification;
 use TechStore\Http\Controllers\Controller;
 use TechStore\Http\Requests\Api\Application\Orders\UpdateOrderRequest;
 use TechStore\Http\Resources\OrderResource;
 use TechStore\Models\Order;
+use TechStore\Notifications\OrderStatusChange;
 use TechStore\Repositories\OrderRepository;
 
 class OrderController extends Controller
@@ -29,8 +31,12 @@ class OrderController extends Controller
     /**
      * Update the specified order.
      */
-    public function update(UpdateOrderRequest $request, Order $order): Order
+    public function update(UpdateOrderRequest $request, Order $order): void
     {
-        return $this->orderRepository->update($order->id, ['status' => $request->input('status')]);
+        $order = $this->orderRepository->update($order->id, ['status' => $request->input('status')]);
+
+        Notification::route('mail', $order->email)->notify(new OrderStatusChange($order));
+
+        return;
     }
 }
