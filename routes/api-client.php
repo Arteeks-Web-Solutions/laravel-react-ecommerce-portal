@@ -8,6 +8,7 @@ Route::get('/user', [Client\UserController::class, 'current'])->middleware('auth
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/orders', [Client\OrderController::class, 'index']);
     Route::get('/order/{order:id}', [Client\OrderController::class, 'view']);
+    Route::get('/order/{order:id}/invoice', [Client\OrderController::class, 'downloadInvoice']);
 
     Route::post('/personal', [Client\UserController::class, 'updatePersonalData']);
     Route::post('/address', [Client\UserController::class, 'updateAddressData']);

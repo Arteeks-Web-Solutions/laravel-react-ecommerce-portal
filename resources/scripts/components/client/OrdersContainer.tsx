@@ -3,6 +3,7 @@ import type { Order, OrderItem } from '@/types/models';
 import { useEffect } from 'react';
 import Spinner from '@/components/elements/Spinner';
 import Error from '@/components/exceptions/Error';
+import Button from '../elements/Button';
 
 const getStatusColor = (status: string) => {
     switch (status) {
@@ -67,6 +68,15 @@ export default function OrdersContainer() {
                                         )
                                         .toFixed(2)}
                                 </span>
+
+                                <Button
+                                    aria-label={`Invoice for order ORD-${order.id}`}
+                                    onClick={() => {
+                                        window.open(`/api/client/order/${order.id}/invoice`);
+                                    }}
+                                >
+                                    Invoice
+                                </Button>
                             </div>
                         </div>
 
