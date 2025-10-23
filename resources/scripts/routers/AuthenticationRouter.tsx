@@ -1,6 +1,7 @@
 import ForgotPasswordContainer from '@/components/auth/ForgotPasswordContainer';
 import LoginContainer from '@/components/auth/LoginContainer';
 import RegisterContainer from '@/components/auth/RegisterContainer';
+import ResetPasswordContainer from '@/components/auth/ResetPasswordContainer';
 import NotFound from '@/components/exceptions/NotFound';
 import { Route, Routes } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ export default function AuthenticationRouter() {
             <Route path='/' element={<LoginContainer />} />
             <Route path='/register' element={<RegisterContainer />} />
             <Route path='/password/email' element={<ForgotPasswordContainer />} />
+            <Route path='/password/reset/:token' element={<ResetPasswordContainer />} />
 
             <Route path='*' element={<NotFound />} />
         </Routes>

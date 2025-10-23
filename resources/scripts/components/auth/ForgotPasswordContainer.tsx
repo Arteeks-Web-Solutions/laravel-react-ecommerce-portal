@@ -43,7 +43,7 @@ export default function ForgotPasswordContainer() {
             .then((response) => {
                 resetForm();
                 toast.success(response);
-                navigate('/login');
+                navigate('/auth');
             })
             .catch((error) => {
                 console.error(error);
