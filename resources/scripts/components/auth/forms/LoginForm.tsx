@@ -40,8 +40,8 @@ export default function LoginForm({ checkout }: { checkout?: boolean }) {
 
         login({ ...values, recaptchaData: token })
             .then((data) => {
-                setUserData(data);
-                if (!checkout) navigate('/client');
+                setUserData(data.user);
+                if (!checkout) navigate(data.redirect_url);
                 setSubmitting(false);
             })
             .catch((error) => {

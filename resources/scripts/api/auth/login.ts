@@ -9,7 +9,12 @@ export interface LoginData {
     recaptchaData?: string | null;
 }
 
-export default ({ email, password, recaptchaData }: LoginData): Promise<UserData> => {
+interface LoginResponse {
+    user: UserData;
+    redirect_url: string;
+}
+
+export default ({ email, password, recaptchaData }: LoginData): Promise<LoginResponse> => {
     return new Promise((resolve, reject) => {
         http.get('/sanctum/csrf-cookie')
             .then(() =>

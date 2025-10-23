@@ -99,7 +99,10 @@ class LoginController extends Controller
 
         // If the request expects JSON, return the user data as JSON
         if ($request->expectsJson()) {
-            return new UserResource($user);
+            return response()->json([
+                'user' => new UserResource($user),
+                'redirect_url' =>  parse_url(redirect()->intended($this->redirectPath())->getTargetUrl(), PHP_URL_PATH),
+            ]);
         }
 
         return redirect()->intended($this->redirectPath());
