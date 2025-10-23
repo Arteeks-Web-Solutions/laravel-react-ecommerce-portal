@@ -14,8 +14,8 @@ export interface Order {
 
 export interface OrderItem {
     productId: number;
-    name: string;
-    image: string;
+    productName: string;
+    productImage: string;
     quantity: number;
     price: number;
 }

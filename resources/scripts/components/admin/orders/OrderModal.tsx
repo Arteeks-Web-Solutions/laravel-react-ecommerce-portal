@@ -101,14 +101,10 @@ export default function OrderModal({ order, onClose, mutate }: ViewOrderModalPro
                         {order.items.map((item: OrderItem, index: number) => (
                             <li key={index} className='py-2 flex justify-between text-sm'>
                                 <div>
-                                    <p className='font-medium text-gray-900'>{item.name}</p>
-                                    <p className='text-gray-500'>
-                                        Qty: {item.quantity} × €{item.price.toFixed(2)}
-                                    </p>
+                                    <p className='font-medium text-gray-900'>{item.productName}</p>
+                                    <p className='text-gray-500'>Qty: {item.quantity}</p>
                                 </div>
-                                <p className='font-semibold text-gray-900'>
-                                    €{(item.price * item.quantity).toFixed(2)}
-                                </p>
+                                <p className='font-semibold text-gray-900'>€{item.price}</p>
                             </li>
                         ))}
                     </ul>
@@ -119,10 +115,7 @@ export default function OrderModal({ order, onClose, mutate }: ViewOrderModalPro
                     <span>
                         €
                         {order.items
-                            .reduce(
-                                (sum: number, item: OrderItem) => sum + item.price * item.quantity,
-                                0,
-                            )
+                            .reduce((sum: number, item: OrderItem) => sum + Number(item.price), 0)
                             .toFixed(2)}
                     </span>
                 </div>

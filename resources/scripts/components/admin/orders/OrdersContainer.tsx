@@ -77,14 +77,19 @@ export default function OrdersContainer() {
                                             </span>
                                         </td>
                                         <td className='px-6 py-4 text-gray-600'>
-                                            {order.items.length} items
+                                            {order.items?.reduce(
+                                                (sum: number, item: OrderItem) =>
+                                                    sum + (item.quantity || 0),
+                                                0,
+                                            )}{' '}
+                                            items
                                         </td>
                                         <td className='px-6 py-4 font-bold text-gray-900'>
                                             €
                                             {order.items
                                                 .reduce(
                                                     (sum: number, item: OrderItem) =>
-                                                        sum + item.price,
+                                                        sum + Number(item.price),
                                                     0,
                                                 )
                                                 .toFixed(2)}

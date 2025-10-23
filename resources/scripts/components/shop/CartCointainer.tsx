@@ -160,6 +160,7 @@ export default function CartContainer() {
                                                 </Button>
                                                 <span
                                                     className={
+                                                        product.stock &&
                                                         item.quantity > product.stock
                                                             ? 'text-red-500'
                                                             : ''

@@ -57,7 +57,10 @@ export default function OrdersContainer() {
                             <span className='text-xl font-bold text-gray-900'>
                                 €
                                 {order.items
-                                    .reduce((sum: number, item: OrderItem) => sum + item.price, 0)
+                                    .reduce(
+                                        (sum: number, item: OrderItem) => sum + Number(item.price),
+                                        0,
+                                    )
                                     .toFixed(2)}
                             </span>
                         </div>
@@ -72,12 +75,10 @@ export default function OrdersContainer() {
                                     className='flex justify-between items-center text-sm'
                                 >
                                     <span className='text-gray-700'>
-                                        {item.name}{' '}
+                                        {item.productName}{' '}
                                         <span className='text-gray-500'>x{item.quantity}</span>
                                     </span>
-                                    <span className='font-medium text-gray-900'>
-                                        €{item.price.toFixed(2)}
-                                    </span>
+                                    <span className='font-medium text-gray-900'>€{item.price}</span>
                                 </div>
                             ))}
                         </div>

@@ -97,7 +97,8 @@ export default function DashboardContainer() {
                                     €{' '}
                                     {order.items
                                         .reduce(
-                                            (sum: number, item: OrderItem) => sum + item.price,
+                                            (sum: number, item: OrderItem) =>
+                                                sum + Number(item.price),
                                             0,
                                         )
                                         .toFixed(2)}

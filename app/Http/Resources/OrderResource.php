@@ -22,7 +22,9 @@ class OrderResource extends BaseResource
         return [
             'id' => $this->id,
             'email' => $this->email,
-            'items' => $this->items,
+            'items' => $this->whenLoaded('items', function () {
+                return OrderItemResource::collection($this->items);
+            }),
             'shipping_name' => $this->shipping_name,
             'shipping_line1' => $this->shipping_line1,
             'shipping_city' => $this->shipping_city,

@@ -18,12 +18,12 @@ class OrderController extends Controller
         private OrderRepository $orderRepository,
     ) {}
 
-    /**
+/**
      * Display a listing of the user's orders.
      */
     public function index(Request $request): ResourceCollection
     {
-        return OrderResource::collection($this->orderRepository->getUserOrders($request->user()->id));
+        return OrderResource::collection($this->orderRepository->getUserOrders($request->user()->id)->load('items'));
     }
 
     /**
@@ -34,6 +34,6 @@ class OrderController extends Controller
         // Ensure the order belongs to the authenticated user
         if ($order->user_id !== $request->user()->id) abort(403);
 
-        return new OrderResource($order);
+        return new OrderResource($order->load('items'));
     }
 }

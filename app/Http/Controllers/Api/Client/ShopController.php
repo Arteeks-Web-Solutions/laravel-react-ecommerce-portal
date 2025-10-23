@@ -17,6 +17,7 @@ use TechStore\Http\Resources\ProductDataResource;
 use TechStore\Http\Resources\ProductResource;
 use TechStore\Models\Product;
 use TechStore\Repositories\CartRepository;
+use TechStore\Repositories\OrderItemRepository;
 use TechStore\Repositories\OrderRepository;
 use TechStore\Repositories\ProductCategoryRepository;
 use TechStore\Repositories\ProductRepository;
@@ -30,6 +31,7 @@ class ShopController extends Controller
         private ProductCategoryRepository $categoryRepository,
         private ProductRepository $productRepository,
         private CartRepository $cartRepository,
+        private OrderItemRepository $orderItemRepository,
         private OrderRepository $orderRepository,
     ) {}
 
@@ -191,20 +193,10 @@ class ShopController extends Controller
             'expand' => ['data.price.product'],
         ]);
 
-        $items = [];
-        foreach ($stripe_items->data as $item) {
-            $product = $item->price->product;
-            $items[] = [
-                'product_id' => (int) $product->metadata->product_id,
-                'name' => $product->name,
-                'image' => $product->images[0] ?? null,
-                'quantity' => $item->quantity,
-                'price' => $item->amount_total / 100,
-            ];
-        }
-
         // save order and line items to database to prevent extra API calls later
-        $order = $this->orderRepository->createFromStripeSession($session, $items);
+        $order = $this->orderRepository->createFromStripeSession($session);
+
+        $this->orderItemRepository->createFromStripeItems(collect($stripe_items->data), $order->id);
         $this->cartRepository->clearCart($request->user()->id);
 
         return redirect('/shop/checkout/completed?order_id=' . $order->id);

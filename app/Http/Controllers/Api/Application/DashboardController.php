@@ -5,6 +5,7 @@ namespace TechStore\Http\Controllers\Api\Application;
 use TechStore\Http\Controllers\Controller;
 use TechStore\Http\Resources\StatisticResource;
 use TechStore\Models\Order;
+use TechStore\Models\OrderItem;
 use TechStore\Models\Product;
 use TechStore\Models\User;
 
@@ -18,19 +19,23 @@ class DashboardController extends Controller
         return new StatisticResource([
             'customers_count' => User::where('is_admin', false)->count(),
             'orders_count' => Order::count(),
-            'total_revenue' => number_format(Order::all()->flatMap(fn($order) => collect($order->items))->sum('price'), 2),
+            'total_revenue' => number_format(OrderItem::sum('price'), 2, '.', ''),
             'products_count' => Product::count(),
-            'recent_orders' => Order::latest()->take(5)->get(),
-            'top_products' => Product::whereIn('id', $ids = Order::all()
-                ->flatMap->items
+            'recent_orders' => Order::latest()->with('items')->take(5)->get(),
+            'top_products' =>  Product::whereIn(
+                'id',
+                OrderItem::select('product_id')
+                    ->selectRaw('SUM(quantity) as total_qty')
+                    ->groupBy('product_id')
+                    ->orderByDesc('total_qty')
+                    ->take(5)
+                    ->pluck('product_id')
+            )->orderByRaw('FIELD(id,' . implode(',', OrderItem::select('product_id')
+                ->selectRaw('SUM(quantity) as total_qty')
                 ->groupBy('product_id')
-                ->map(fn($g, $id) => ['id' => (int)$id, 'qty' => $g->sum('quantity')])
-                ->sortByDesc('qty')
+                ->orderByDesc('total_qty')
                 ->take(5)
-                ->values()
-                ->pluck('id')
-                ->toArray())
-                ->when(!empty($ids), fn($query) => $query->orderByRaw('FIELD(id,' . implode(',', $ids) . ')'))
+                ->pluck('product_id')->toArray()) . ')')
                 ->get(),
         ]);
     }

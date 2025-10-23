@@ -34,14 +34,13 @@ class OrderRepository extends BaseRepository
      * @param Session $session
      * @return Order
      */
-    public function createFromStripeSession(Session $session, array $items): Order
+    public function createFromStripeSession(Session $session): Order
     {
         // save customer email and shipping info per order to
         // allow different shipping address than user's default
         $order = $this->model->create([
             'user_id' => $session->client_reference_id,
             'email' => $session->customer_email,
-            'items' => $items,
             'shipping_name' => $session->metadata->shipping_name,
             'shipping_line1' => $session->metadata->shipping_line1,
             'shipping_city' => $session->metadata->shipping_city,

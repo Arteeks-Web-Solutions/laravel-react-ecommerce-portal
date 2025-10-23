@@ -3,6 +3,7 @@
 namespace TechStore\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
@@ -14,7 +15,6 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'email',
-        'items',
         'shipping_name',
         'shipping_line1',
         'shipping_city',
@@ -33,7 +33,14 @@ class Order extends Model
     {
         return [
             'user_id' => 'integer',
-            'items' => 'array',
         ];
+    }
+
+    /**
+     * Get the order items for the order.
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->restrictOnDelete();
             $table->string('email');
-            $table->json('items');
             $table->string('shipping_name');
             $table->string('shipping_line1');
             $table->string('shipping_city');

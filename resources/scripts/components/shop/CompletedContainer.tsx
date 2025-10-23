@@ -63,10 +63,10 @@ export default function CheckoutCompleted() {
                         <ul className='divide-y'>
                             {data.items.map((item: OrderItem, index: number) => (
                                 <li key={index} className='py-4 flex items-center gap-4'>
-                                    {item.image ? (
+                                    {item.productImage ? (
                                         <img
-                                            src={item.image}
-                                            alt={item.name}
+                                            src={item.productImage}
+                                            alt={item.productName}
                                             className='w-16 h-16 min-w-16 min-h-16 object-cover rounded'
                                         />
                                     ) : (
@@ -78,11 +78,11 @@ export default function CheckoutCompleted() {
                                         <div className='flex justify-between'>
                                             <div>
                                                 <div className='font-semibold text-gray-900'>
-                                                    {item.name}
+                                                    {item.productName}
                                                 </div>
                                             </div>
                                             <div className='font-semibold text-gray-900'>
-                                                €{item.price.toFixed(2)}
+                                                €{item.price}
                                             </div>
                                         </div>
                                         <div className='flex items-center justify-between mt-2'>
@@ -104,7 +104,10 @@ export default function CheckoutCompleted() {
                             <div className='text-2xl font-bold text-gray-900'>
                                 €
                                 {data.items
-                                    .reduce((sum: number, item: OrderItem) => sum + item.price, 0)
+                                    .reduce(
+                                        (sum: number, item: OrderItem) => sum + Number(item.price),
+                                        0,
+                                    )
                                     .toFixed(2)}
                             </div>
                         </div>
