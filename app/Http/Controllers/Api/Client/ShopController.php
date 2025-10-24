@@ -10,7 +10,7 @@ use Stripe\Stripe;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use TechStore\Http\Controllers\Controller;
 use TechStore\Http\Requests\Api\Client\CheckoutRequest;
-use TechStore\Http\Requests\Api\Client\UpdateCardRequest;
+use TechStore\Http\Requests\Api\Client\UpdateCartRequest;
 use TechStore\Http\Resources\CartDataResource;
 use TechStore\Http\Resources\CartResource;
 use TechStore\Http\Resources\ProductCategoryResource;
@@ -73,7 +73,7 @@ class ShopController extends Controller
     /**
      * Update or remove a product in the cart.
      */
-    public function updateCart(UpdateCardRequest $request): void
+    public function updateCart(UpdateCartRequest $request): void
     {
         $cart = $this->cartRepository->getCartItems($request->user()->id);
         if (!$cart) {

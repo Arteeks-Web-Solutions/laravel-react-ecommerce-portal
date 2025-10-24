@@ -51,6 +51,17 @@ class BaseRepository
     }
 
     /**
+     * Create multiple records.
+     *
+     * @param array $categories
+     * @return bool
+     */
+    public function createMany(array $categories)
+    {
+        return $this->model->insert($categories);
+    }
+
+    /**
      * Update a record by its primary key.
      *
      * @param int $id
@@ -75,6 +86,16 @@ class BaseRepository
     public function delete(int $id)
     {
         return $this->model->destroy($id);
+    }
+
+    /**
+     * Truncate the model's table.
+     *
+     * @return void
+     */
+    public function truncate()
+    {
+        return $this->model->truncate();
     }
 
     /**

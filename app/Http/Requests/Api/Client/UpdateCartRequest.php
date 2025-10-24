@@ -4,7 +4,7 @@ namespace TechStore\Http\Requests\Api\Client;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCardRequest extends FormRequest
+class UpdateCartRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
