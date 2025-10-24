@@ -112,9 +112,14 @@ export default function ShopContainer() {
 
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
                         {data.products
-                            .filter((p: Product) =>
-                                !selectedCategory ? true : p.category.id === selectedCategory,
-                            )
+                            .filter((p: Product) => {
+                                const matchesCategory =
+                                    !selectedCategory || p.category.id === selectedCategory;
+                                const matchesSearch = p.name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase());
+                                return matchesCategory && matchesSearch;
+                            })
                             .map((product: Product) => (
                                 <div
                                     key={product.id}
