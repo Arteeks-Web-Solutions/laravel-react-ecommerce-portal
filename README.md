@@ -87,6 +87,12 @@ Open-source under the **MIT License**.
 Free to use for study, portfolio, or commercial purposes with attribution.
 
 ### ✨ Preview
-*To be added*
+![shop](docs/shop/overview.png)
+![shop cart](docs/shop/cart.png)
+![client orders](docs/client/orders.png)
+![client profile](docs/client/profile.png)
+![admin dashboard](docs/admin/dashboard.png)
+![admin products](docs/admin/products.png)
+![admin orders](docs/admin/orders.png)
 
 > 💬 *Built with Laravel, React, and Tailwind — by Arteeks.*
