@@ -68,6 +68,6 @@ class User extends Authenticatable
      */
     public function isDemo(): bool
     {
-        return ($this->email === 'demo@example.com' || $this->is_admin) && config('app.demo');
+        return ($this->email === 'user@example.com' || $this->is_admin) && config('app.demo');
     }
 }
