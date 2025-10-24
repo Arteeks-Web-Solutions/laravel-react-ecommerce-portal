@@ -132,7 +132,7 @@ class ShopController extends Controller
         foreach ($cart->items as $item) {
             $product = $this->productRepository->find($item['product_id']);
 
-            if ($product->stock && $product->stock < $item['quantity']) {
+            if ($product->stock !== null && ($product->stock < $item['quantity'])) {
                 throw new HttpException(400, "The product '{$product->name}' does not have enough stock. Available stock: {$product->stock}");
             }
 

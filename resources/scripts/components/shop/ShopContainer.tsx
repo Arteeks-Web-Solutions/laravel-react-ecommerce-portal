@@ -130,9 +130,11 @@ export default function ShopContainer() {
                                         ) : (
                                             <Package className='w-full h-full text-gray-200 p-10' />
                                         )}
-                                        {product.stock && product.stock < 10 && (
+                                        {product.stock !== null && product.stock < 10 && (
                                             <span className='absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full'>
-                                                Only {product.stock} left in stock
+                                                {product.stock
+                                                    ? `Only ${product.stock} left in stock`
+                                                    : 'Out of stock'}
                                             </span>
                                         )}
                                     </div>

@@ -75,7 +75,7 @@ export default function CheckoutContainer() {
                         console.error(error);
                         AddHttpError(error);
                     });
-            } else if (product.stock && item.quantity > product.stock) {
+            } else if (product.stock !== null && item.quantity > product.stock) {
                 updateCart(item.productId, product.stock)
                     .then(() => {
                         toast.info(

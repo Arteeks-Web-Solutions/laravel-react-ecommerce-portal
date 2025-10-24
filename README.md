@@ -1,7 +1,3 @@
-# laravel-react-ecommerce-portal
-Fullstack Laravel + React + Tailwind ecommerce platform met gebruikersauthenticatie, klant- &amp; adminportaal en shopmodule. Toont secure API’s, role-based access en moderne frontend integratie.
-# laravel-react-ecommerce-portal
-Fullstack Laravel + React + Tailwind ecommerce platform met gebruikersauthenticatie, klant- &amp; adminportaal en shopmodule. Toont secure API’s, role-based access en moderne frontend integratie.
 # Laravel + React Fullstack Ecommerce Platform
 
 A modern fullstack example project built with **Laravel**, **React**, and **Tailwind CSS**.
