@@ -22,21 +22,7 @@ class DashboardController extends Controller
             'total_revenue' => number_format(OrderItem::sum('price'), 2, '.', ''),
             'products_count' => Product::count(),
             'recent_orders' => Order::latest()->with('items')->take(5)->get(),
-            'top_products' =>  Product::whereIn(
-                'id',
-                OrderItem::select('product_id')
-                    ->selectRaw('SUM(quantity) as total_qty')
-                    ->groupBy('product_id')
-                    ->orderByDesc('total_qty')
-                    ->take(5)
-                    ->pluck('product_id')
-            )->orderByRaw('FIELD(id,' . implode(',', OrderItem::select('product_id')
-                ->selectRaw('SUM(quantity) as total_qty')
-                ->groupBy('product_id')
-                ->orderByDesc('total_qty')
-                ->take(5)
-                ->pluck('product_id')->toArray()) . ')')
-                ->get(),
+            'top_products' => ($ids = OrderItem::select('product_id')->selectRaw('SUM(quantity) as total_qty')->groupBy('product_id')->orderByDesc('total_qty')->take(5)->pluck('product_id')->toArray()) ? Product::whereIn('id', $ids)->orderByRaw('FIELD(id,' . implode(',', $ids) . ')')->get() : collect(),
         ]);
     }
 }
