@@ -17,7 +17,7 @@ jobs:
 
       # 2. Set up SSH key
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.8.1
+        uses: webfactory/ssh-agent@v0.9.1
         with:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
 
@@ -33,16 +33,12 @@ jobs:
         with:
           php-version: '8.2'
 
-      # 5. Sync code to server via rsync
-      - name: Sync files to server
-        run: |
-          rsync -avz --delete --exclude='.git*' --exclude='node_modules' ./ deploy@techstore.arteeks.nl:/var/www/techstore
-
-      # 6. SSH into server to run deployment commands
+      # 5. SSH into server to run deployment commands
       - name: Run deployment commands on server
         run: |
-          ssh deploy@techstore.arteeks.nl << 'EOF'
+          ssh -o StrictHostKeyChecking=no deploy@${{ secrets.DEPLOY_SERVER_IP }} << 'EOF'
             cd /var/www/techstore
+            git pull origin develop
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
             php artisan config:cache
@@ -50,8 +46,5 @@ jobs:
             php artisan view:cache
             npm ci
             npm run build
-            chown -R www-data:www-data .
-            chmod -R 775 storage bootstrap/cache
-            # optional for later use
-            # php artisan queue:restart
           EOF
+
