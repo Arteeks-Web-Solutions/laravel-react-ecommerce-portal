@@ -62,4 +62,12 @@ class User extends Authenticatable
         'country' => null,
         'is_admin' => false,
     ];
+
+    /**
+     * Check if the user is a demo user.
+     */
+    public function isDemo(): bool
+    {
+        return ($this->email === 'demo@example.com' || $this->is_admin) && config('app.demo');
+    }
 }

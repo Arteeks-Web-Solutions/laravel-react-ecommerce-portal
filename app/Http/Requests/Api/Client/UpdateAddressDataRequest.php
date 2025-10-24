@@ -15,7 +15,7 @@ class UpdateAddressDataRequest extends FormRequest
     {
         $user = $this->user();
 
-        return config('app.demo') && $user->isDemo() ? false : true;
+        return $user->isDemo() ? false : true;
     }
 
     /**

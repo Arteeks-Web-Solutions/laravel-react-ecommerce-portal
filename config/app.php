@@ -43,6 +43,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Demo Mode
+    |--------------------------------------------------------------------------
+    |
+    | This value determines if your application is currently running in demo mode.
+    | This determines if your application should use refreshing demo data and if
+    | certain account features should be disabled.
+    |
+    */
+
+    'demo' => env('APP_DEMO', false),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
