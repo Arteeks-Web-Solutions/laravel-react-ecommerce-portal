@@ -12,6 +12,7 @@ import Button from '@/components/elements/Button';
 interface Values {
     email: string;
     password: string;
+    remember: boolean;
 }
 
 export default function LoginForm({ checkout }: { checkout?: boolean }) {
@@ -25,20 +26,21 @@ export default function LoginForm({ checkout }: { checkout?: boolean }) {
     const setUserData = useStoreActions((actions) => actions.user.setUserData);
 
     const handleSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
-        // If there is no token in the state yet, request the token and then abort this submit request
-        // since it will be re-submitted when the recaptcha data is returned by the component.
         if (!token) {
             ref.current!.execute().catch((error) => {
                 console.error(error);
-
                 setSubmitting(false);
                 AddHttpError(error);
             });
-
             return;
         }
 
-        login({ ...values, recaptchaData: token })
+        login({
+            email: values.email,
+            password: values.password,
+            remember: values.remember,
+            recaptchaData: token,
+        })
             .then((data) => {
                 setUserData(data.user);
                 if (!checkout) navigate(data.redirect_url);
@@ -46,18 +48,19 @@ export default function LoginForm({ checkout }: { checkout?: boolean }) {
             })
             .catch((error) => {
                 console.error(error);
-
                 AddHttpError(error);
                 setToken('');
                 if (ref.current) ref.current.reset();
-
                 setSubmitting(false);
             });
     };
 
     return (
-        <Formik onSubmit={handleSubmit} initialValues={{ email: '', password: '' }}>
-            {({ isSubmitting, setSubmitting, submitForm }) => (
+        <Formik
+            onSubmit={handleSubmit}
+            initialValues={{ email: '', password: '', remember: false }}
+        >
+            {({ isSubmitting, setSubmitting, submitForm, values, handleChange }) => (
                 <Form className='bg-white rounded-b-xl shadow-lg px-8 py-10 w-full max-w-md'>
                     <div className='mb-6 relative'>
                         <Field
@@ -81,7 +84,19 @@ export default function LoginForm({ checkout }: { checkout?: boolean }) {
                         />
                     </div>
 
-                    <div className='text-right mb-6'>
+                    <div className='flex items-center justify-between mb-6'>
+                        <label className='flex items-center space-x-2 text-sm text-gray-600'>
+                            <input
+                                type='checkbox'
+                                name='remember'
+                                checked={values.remember}
+                                onChange={handleChange}
+                                className='rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
+                                disabled={isSubmitting}
+                            />
+                            <span>Remember me</span>
+                        </label>
+
                         <Link
                             to='/auth/password/email'
                             className='text-sm text-gray-500 hover:text-gray-900 font-medium underline'
@@ -96,7 +111,7 @@ export default function LoginForm({ checkout }: { checkout?: boolean }) {
 
                     <Reaptcha
                         ref={ref}
-                        size={'invisible'}
+                        size='invisible'
                         sitekey={siteKey || '_invalid_key'}
                         onVerify={(response) => {
                             setToken(response);
@@ -111,7 +126,7 @@ export default function LoginForm({ checkout }: { checkout?: boolean }) {
                     {!checkout && (
                         <div className='text-center mt-4 text-sm text-gray-600'>
                             <p>
-                                Don't have an account yet?{' '}
+                                Don&apos;t have an account yet?{' '}
                                 <Link
                                     to='/auth/register'
                                     className='text-gray-900 font-semibold hover:underline'

@@ -82,7 +82,7 @@ class LoginController extends Controller
         // Proceed login after recaptcha success
         return $this->guard()->attempt(
             $this->credentials($request),
-            $request->filled('remember')
+            $request->input('remember') ?? false,
         );
     }
 

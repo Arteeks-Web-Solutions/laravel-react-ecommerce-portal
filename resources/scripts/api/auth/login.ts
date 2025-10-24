@@ -6,6 +6,7 @@ import type { CartItem } from '@/types/models';
 export interface LoginData {
     email: string;
     password: string;
+    remember?: boolean;
     recaptchaData?: string | null;
 }
 
@@ -14,13 +15,19 @@ interface LoginResponse {
     redirect_url: string;
 }
 
-export default ({ email, password, recaptchaData }: LoginData): Promise<LoginResponse> => {
+export default ({
+    email,
+    password,
+    remember,
+    recaptchaData,
+}: LoginData): Promise<LoginResponse> => {
     return new Promise((resolve, reject) => {
         http.get('/sanctum/csrf-cookie')
             .then(() =>
                 http.post('/auth/login', {
                     email,
                     password,
+                    remember,
                     'g-recaptcha-response': recaptchaData,
                 }),
             )
