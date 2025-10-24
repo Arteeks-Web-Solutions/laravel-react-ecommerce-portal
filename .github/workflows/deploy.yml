@@ -38,7 +38,9 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no deploy@${{ secrets.DEPLOY_SERVER_IP }} << 'EOF'
             cd /var/www/techstore
-            git pull origin develop
+            git fetch origin
+            git reset --hard origin/develop
+            git clean -f -d
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
             php artisan config:cache
