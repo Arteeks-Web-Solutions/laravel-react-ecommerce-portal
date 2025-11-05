@@ -3,6 +3,7 @@
 namespace TechStore\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
@@ -33,5 +34,21 @@ class OrderItem extends Model
             'price' => 'decimal:2',
             'quantity' => 'integer',
         ];
+    }
+
+    /**
+     * Get the product associated with the order item.
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Get the order that this item belongs to.
+     */
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
     }
 }

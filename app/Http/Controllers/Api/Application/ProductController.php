@@ -53,6 +53,8 @@ class ProductController extends Controller
      */
     public function updateProduct(Product $product, StoreProductRequest $request): Product
     {
+        if ($product->is_demo) throw new HttpException(400, 'Demo products can not be updated.');
+
         return $this->productRepository->update($product->id, $request->validated());
     }
 
@@ -61,6 +63,8 @@ class ProductController extends Controller
      */
     public function deleteProduct(Product $product): int
     {
+        if ($product->is_demo) throw new HttpException(400, 'Demo products can not be deleted.');
+
         return $this->productRepository->delete($product->id);
     }
 

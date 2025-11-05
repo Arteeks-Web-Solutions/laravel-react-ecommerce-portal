@@ -21,6 +21,7 @@ class Product extends Model
         'image',
         'price',
         'stock',
+        'is_demo',
         'category_id',
     ];
 
@@ -34,6 +35,7 @@ class Product extends Model
         return [
             'price' => 'decimal:2',
             'stock' => 'integer',
+            'is_demo' => 'boolean',
             'category_id' => 'integer',
         ];
     }
@@ -45,6 +47,7 @@ class Product extends Model
         'description' => null,
         'image' => null,
         'stock' => null,
+        'is_demo' => false,
     ];
 
     /**

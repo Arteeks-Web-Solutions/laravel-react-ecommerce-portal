@@ -40,6 +40,22 @@ class BaseRepository
     }
 
     /**
+     * Get records matching a relationship condition.
+     *
+     * @param string $relation
+     * @param \Closure|null $callback
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function whereHas(string $relation, ?\Closure $callback = null)
+    {
+        $query = $this->model->newQuery();
+        if ($callback) {
+            return $query->whereHas($relation, $callback);
+        }
+        return $query->whereHas($relation);
+    }
+
+    /**
      * Create a new record.
      *
      * @param array $data
@@ -48,6 +64,18 @@ class BaseRepository
     public function create(array $data)
     {
         return $this->model->create($data);
+    }
+
+    /**
+     * First or create a record.
+     *
+     * @param array $attributes
+     * @param array $values
+     * @return Model
+     */
+    public function firstOrCreate(array $attributes, array $values = [])
+    {
+        return $this->model->firstOrCreate($attributes, $values);
     }
 
     /**
@@ -86,6 +114,21 @@ class BaseRepository
     public function delete(int $id)
     {
         return $this->model->destroy($id);
+    }
+
+    /**
+     * Delete records matching specific conditions.
+     *
+     * @param array $conditions
+     * @return int
+     */
+    public function deleteWhere(array $conditions, bool $force = false)
+    {
+        $query = $this->model->where($conditions);
+        if ($force) {
+            return $query->forceDelete();
+        }
+        return $query->delete();
     }
 
     /**
