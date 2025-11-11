@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'USB-C Hub',
             'description' => 'Multi-port USB-C hub with HDMI and card reader',
             'image' => 'https://images.pexels.com/photos/4158/apple-iphone-smartphone-desk.jpg?auto=compress&cs=tinysrgb&w=400',
-            'price' => 249.99,
+            'price' => 24.99,
             'is_demo' => true,
             'category_id' => $electronics->id,
         ], [
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Desk Lamp',
             'description' => 'LED desk lamp with adjustable brightness',
             'image' => 'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=400',
-            'price' => 399.99,
+            'price' => 39.99,
             'is_demo' => true,
             'category_id' => $home->id,
         ], [
