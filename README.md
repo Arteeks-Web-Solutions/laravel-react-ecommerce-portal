@@ -1,4 +1,4 @@
-# Laravel + React Fullstack Ecommerce Platform
+# Laravel + React Fullstack Ecommerce Platform [![Live Demo](https://img.shields.io/badge/demo-online-green)](https://techstore.arteeks.nl/shop)
 
 A modern fullstack example project built with **Laravel**, **React**, and **Tailwind CSS**.
 This project demonstrates how we can build scalable platforms with user roles, a store module, customer portal, and administrative dashboard — all in one integrated codebase.
@@ -69,6 +69,8 @@ npm install
 npm run dev
 ```
 
+Admin accounts can be created by running `php artisan user:create`
+
 Then set up your (local) web server to access the app.
 
 ## 🌍 Demo Accounts
@@ -77,6 +79,8 @@ Then set up your (local) web server to access the app.
 |------|-------|----------|
 | Admin | admin@example.com | password |
 | Customer | user@example.com | password |
+
+👉 [Open Live Demo](https://techstore.arteeks.nl/shop)
 
 ## 🧑‍💻 Contribution
 Pull requests, feedback, and feature suggestions are welcome!
