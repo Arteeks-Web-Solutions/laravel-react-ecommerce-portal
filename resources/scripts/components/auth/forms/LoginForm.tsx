@@ -85,15 +85,25 @@ export default function LoginForm({ checkout }: { checkout?: boolean }) {
                     </div>
 
                     <div className='flex items-center justify-between mb-6'>
-                        <label className='flex items-center space-x-2 text-sm text-gray-600'>
-                            <input
-                                type='checkbox'
-                                name='remember'
-                                checked={values.remember}
-                                onChange={handleChange}
-                                className='rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
-                                disabled={isSubmitting}
-                            />
+                        <label className='flex items-center space-x-3 cursor-pointer text-sm text-gray-700'>
+                            <div className='relative'>
+                                <input
+                                    type='checkbox'
+                                    name='remember'
+                                    checked={values.remember}
+                                    onChange={handleChange}
+                                    disabled={isSubmitting}
+                                    className='sr-only'
+                                />
+                                <div
+                                    className={`block w-10 h-5 rounded-full transition-all duration-300
+        ${values.remember ? 'bg-gradient-to-r from-gray-900 to-gray-700' : 'bg-gray-300'}`}
+                                ></div>
+                                <div
+                                    className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white transition-transform duration-300
+        ${values.remember ? 'translate-x-5' : ''}`}
+                                ></div>
+                            </div>
                             <span>Remember me</span>
                         </label>
 
